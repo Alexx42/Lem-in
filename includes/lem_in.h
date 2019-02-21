@@ -6,7 +6,7 @@
 /*   By: Alex <Alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 04:04:37 by Alex              #+#    #+#             */
-/*   Updated: 2018/12/10 14:00:03 by Alex             ###   ########.fr       */
+/*   Updated: 2018/12/11 07:37:20 by Alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,29 @@
 
 # define SIZE 500000
 
+typedef struct		s_val
+{
+	char			*content;
+	struct s_val	*next;
+}					t_val;
+
+typedef struct		s_queue
+{
+	t_val			*front;
+	t_val			*rear;
+}					t_queue;
+
+t_queue			*create_queue();
+char			*dequeue(t_queue *queue);
+void			enqueue(t_queue *queue, char *data);
+int				is_empty_queue(t_queue *queue);
+void			print_queue(t_queue *queue);
 
 typedef struct		s_hash
 {
 	char			*data;
 	int				key;
 }					t_hash;
-
 
 t_hash		*hash_array[SIZE];
 t_hash		*dummy_item;
@@ -42,17 +58,18 @@ typedef struct		s_graph
 {
 	char			nb_vertices;
 	t_adj			**adj_list;
+	int				*visited;
 }					t_graph;
 
 typedef struct		s_infos
 {
-	void			*room_start;
-	void			*room_end;
+	char			*room_start;
+	char			*room_end;
 	size_t			nb_ants;
 }					t_infos;
 
 void			lines_push_back(t_list **lst, char *str);
-void			general_parsing(t_list *lst);
+int 			general_parsing(t_list *lst);
 void			print_list(t_list *lst);
 t_graph			*new_graph(int num_vertices);
 void		add_edge(t_graph *graph, char *src, char *dst);
@@ -63,5 +80,8 @@ int				hash_code(int key);
 void			insert_data(int key, char *data);
 int				search_item(char *data);
 void			print_hash();
+int				general_algorithm(t_graph *graph, t_infos *info);
+void		print_path(t_graph *graph, t_infos *info);
+
 
 #endif

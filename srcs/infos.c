@@ -6,7 +6,7 @@
 /*   By: Alex <Alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 08:12:05 by Alex              #+#    #+#             */
-/*   Updated: 2018/12/09 08:14:10 by Alex             ###   ########.fr       */
+/*   Updated: 2018/12/10 18:00:52 by Alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@ t_infos		*init_infos()
 		return (NULL);
 	info->room_start = NULL;
 	info->room_end = NULL;
+	info->nb_ants = 0;
 	return (info);
 }

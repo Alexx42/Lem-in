@@ -3,9 +3,9 @@ LIB = libft/libft.a
 LIB_PRINTF = ft_printf/libftprintf.a
 PRINTF_PATH = ft_printf/
 INCLUDES = -I ./includes -I./libft/ -I ./ft_printf/
-FLAGS = -Wall -Werror -Wextra -g -fsanitize=address
+FLAGS = -Wall -Werror -Wextra #-g -fsanitize=address
 LIBFT_PATH = libft/
-SRCS =  $(addprefix srcs/, main.c list.c parser.c graph.c infos.c print_data.c hash_table.c)
+SRCS =  $(addprefix srcs/, main.c list.c parser.c graph.c infos.c print_data.c hash_table.c algorithm.c queue.c)
 OBJ = $(SRCS:.c=.o)
 CC = gcc
 RED = \x1b[31m

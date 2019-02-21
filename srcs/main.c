@@ -6,7 +6,7 @@
 /*   By: Alex <Alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 04:08:10 by Alex              #+#    #+#             */
-/*   Updated: 2018/12/10 13:37:14 by Alex             ###   ########.fr       */
+/*   Updated: 2018/12/11 07:37:33 by Alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void		create_hash(t_list *lst)
 			;
 		else
 		{
-			name = malloc(sizeof(char) + 3123);
+			name = malloc(sizeof(char) + ft_clength(node->data, ' '));
 			ft_strccpy(name, node->data, ' ');
 			insert_data(i, name);
 			i++;
@@ -57,7 +57,7 @@ int			main(void)
 
 	lst = append_list();
 	create_hash(lst);
-	print_hash();
-	general_parsing(lst);
+	if (general_parsing(lst))
+		ft_putstr_fd("Error", 2);
 	return (0);
 }

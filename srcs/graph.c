@@ -6,7 +6,7 @@
 /*   By: Alex <Alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 07:15:23 by Alex              #+#    #+#             */
-/*   Updated: 2018/12/10 14:00:39 by Alex             ###   ########.fr       */
+/*   Updated: 2018/12/11 06:59:56 by Alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,13 @@ t_graph		*new_graph(int num_vertices)
 	if ((new_graph = (t_graph*)malloc(sizeof(t_graph))) == NULL)
 		return (NULL);
 	new_graph->nb_vertices = num_vertices;
-	new_graph->adj_list = (t_adj **)malloc(sizeof(t_adj*) * (num_vertices + 3123));
+	new_graph->adj_list = (t_adj **)malloc(sizeof(t_adj*) * (num_vertices + 1));
 	i = 0;
+	new_graph->visited = (int *)malloc(sizeof(int) * (num_vertices + 4));
 	while (i < num_vertices)
 	{
 		new_graph->adj_list[i] = NULL;
+		new_graph->visited[i] = 0;
 		i++;
 	}
 	return (new_graph);
@@ -56,4 +58,3 @@ void		add_edge(t_graph *graph, char *src, char *dst)
 		graph->adj_list[search_item(dst)] = new_node;
 	}
 }
-
