@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   queue.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: Alex <Alex@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/11 06:16:40 by Alex              #+#    #+#             */
-/*   Updated: 2018/12/11 06:37:18 by Alex             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <lem_in.h>
 
 t_queue			*create_queue()
@@ -30,7 +18,7 @@ int				is_empty_queue(t_queue *queue)
 	return (0);
 }
 
-void			enqueue(t_queue *queue, char *data)
+void			enqueue(t_queue *queue, char *data, t_val *ok)
 {
 	t_val			*val;
 
@@ -38,6 +26,7 @@ void			enqueue(t_queue *queue, char *data)
 		return ;
 	val->content = data;
 	val->next = NULL;
+	val->papa = ok;
 	if (!queue->front)
 		queue->front = val;
 	if (queue->rear)
@@ -45,19 +34,19 @@ void			enqueue(t_queue *queue, char *data)
 	queue->rear = val;
 }
 
-char			*dequeue(t_queue *queue)
+t_val			*dequeue(t_queue *queue)
 {
-	char		*content;
 	t_val		*val;
 
-	content = NULL;
-	val = queue->front;
-	if (queue->front)
+	val = queue->rear;
+	if (is_empty_queue(queue))
+		return (NULL);
+	if (queue->front == queue->rear)
 	{
-		content = val->content;
-		queue->front = val->next;
-		queue->rear = (queue->front ? queue->rear : NULL);
-		free(val);
+		queue->front = NULL;
+		queue->rear = NULL;
 	}
-	return (content);
+	else
+		queue->front = queue->front->next;
+	return (val);
 }

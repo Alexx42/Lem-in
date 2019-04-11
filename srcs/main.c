@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: Alex <Alex@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/09 04:08:10 by Alex              #+#    #+#             */
-/*   Updated: 2018/12/11 07:37:33 by Alex             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <lem_in.h>
 
 void		create_hash(t_list *lst)
@@ -37,27 +25,8 @@ void		create_hash(t_list *lst)
 	}
 }
 
-t_list		*append_list()
+int		main()
 {
-	t_list		*lst;
-	char		*line;
-
-	if ((lst = (t_list *)malloc(sizeof(t_list))) == NULL)
-		return (NULL);
-	lst = NULL;
-	line = NULL;
-	while (get_next_line(0, &line) > 0)
-		lines_push_back(&lst, line);
-	return (lst);
-}
-
-int			main(void)
-{
-	t_list		*lst;
-
-	lst = append_list();
-	create_hash(lst);
-	if (general_parsing(lst))
-		ft_putstr_fd("Error", 2);
+	parsing_ants();
 	return (0);
 }

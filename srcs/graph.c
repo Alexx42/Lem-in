@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   graph.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: Alex <Alex@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/09 07:15:23 by Alex              #+#    #+#             */
-/*   Updated: 2018/12/11 06:59:56 by Alex             ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <lem_in.h>
 
 t_adj		*new_adj(char *val)
@@ -31,9 +19,9 @@ t_graph		*new_graph(int num_vertices)
 	if ((new_graph = (t_graph*)malloc(sizeof(t_graph))) == NULL)
 		return (NULL);
 	new_graph->nb_vertices = num_vertices;
-	new_graph->adj_list = (t_adj **)malloc(sizeof(t_adj*) * (num_vertices + 1));
+	new_graph->adj_list = (t_adj **)malloc(sizeof(t_adj*) * (num_vertices));
 	i = 0;
-	new_graph->visited = (int *)malloc(sizeof(int) * (num_vertices + 4));
+	new_graph->visited = (int *)malloc(sizeof(int) * (num_vertices));
 	while (i < num_vertices)
 	{
 		new_graph->adj_list[i] = NULL;
