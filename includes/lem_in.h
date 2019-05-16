@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lem_in.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Alex <Alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 04:04:37 by Alex              #+#    #+#             */
-/*   Updated: 2018/12/11 07:37:20 by Alex             ###   ########.fr       */
+/*   Updated: 2019/05/16 13:45:18 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 typedef struct		s_adj
 {
 	char 			*vertex;
+	int				ways;
 	struct s_adj	*next;
 }					t_adj;
 
@@ -40,7 +41,6 @@ typedef struct		s_hash
 	int				key;
 }					t_hash;
 
-
 typedef struct 		s_info
 {
 	char			*room_start;
@@ -52,7 +52,8 @@ typedef struct 		s_info
 typedef struct		s_val
 {
 	char			*content;
-	struct s_val	*papa;
+	struct s_val	*parent;
+	int				nb_possibilies;
 	struct s_val	*next;
 }					t_val;
 
@@ -61,7 +62,6 @@ typedef struct		s_queue
 	t_val			*front;
 	t_val			*rear;
 }					t_queue;
-
 
 /*
 ** HASH
