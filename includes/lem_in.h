@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 04:04:37 by Alex              #+#    #+#             */
-/*   Updated: 2019/05/16 13:45:18 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/05/16 16:34:33 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@
 typedef struct		s_adj
 {
 	char 			*vertex;
-	int				ways;
 	struct s_adj	*next;
 }					t_adj;
 
 typedef struct		s_graph
 {
 	char			nb_vertices;
+	int				**nb_ways;
 	t_adj			**adj_list;
 	int				*visited;
 }					t_graph;
@@ -53,7 +53,6 @@ typedef struct		s_val
 {
 	char			*content;
 	struct s_val	*parent;
-	int				nb_possibilies;
 	struct s_val	*next;
 }					t_val;
 
@@ -81,6 +80,7 @@ void			create_hash(t_list *lst);
 */
 
 void				push_back(t_list **lst, char *str);
+void				remove_idx_elements(t_adj **lst, int idx);
 
 /*
 ** INFOS
