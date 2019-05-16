@@ -4,21 +4,27 @@ int			bfs(t_graph *graph, t_queue *queue, t_info *info)
 {
 	t_val	*current_vertex;
 	t_adj	*tmp;
+	int		idx;
 
-	// current_vertex = (t_val *)malloc(sizeof(t_val));
-	// current_vertex->height = 0;
-	graph->visited[search_item(info->room_start)] = 1;
 	enqueue(queue, info->room_start, NULL);
+
+	idx = 0;
 	while (!is_empty_queue(queue))
 	{
 		current_vertex = dequeue(queue);
 		tmp = graph->adj_list[search_item(current_vertex->content)];
+		// graph->nb_ways[idx][0]++;
 		while (tmp)
 		{
 			if (!graph->visited[search_item(tmp->vertex)])
 			{
-				graph->visited[search_item(tmp->vertex)] = graph->visited[search_item(tmp->vertex)] + 1;
+				if (!ft_strcmp(info->room_end, tmp->vertex))
+				{
+					//add path
+					return 1;
+				}
 				enqueue(queue, tmp->vertex, current_vertex);
+				remove_idx_elements(&tmp, search_item(current_vertex->content));
 			}
 			tmp = tmp->next;
 		}
@@ -30,7 +36,7 @@ int			bfs(t_graph *graph, t_queue *queue, t_info *info)
 			printf("%s ", current_vertex->parent->content);
 		current_vertex = current_vertex->parent;
 	}
-	return (1);
+	return (0);
 }
 
 t_list			*create_lst()
@@ -82,7 +88,7 @@ void			parsing_ants()
 	}
 	// print_graph(graph);
 	// print_info(info);
-	int i = -1;
-	while (++i < 2)
-		bfs(graph, queue, info);
+	while (bfs(graph, queue, info))
+		;
+	print_graph(graph);
 }
