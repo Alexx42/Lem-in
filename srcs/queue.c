@@ -26,7 +26,7 @@ void			enqueue(t_queue *queue, char *data, t_val *ok)
 		return ;
 	val->content = data;
 	val->next = NULL;
-	val->papa = ok;
+	val->parent = ok;
 	if (!queue->front)
 		queue->front = val;
 	if (queue->rear)

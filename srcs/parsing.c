@@ -3,9 +3,10 @@
 int			bfs(t_graph *graph, t_queue *queue, t_info *info)
 {
 	t_val	*current_vertex;
-	char	*adj_vertex;
 	t_adj	*tmp;
 
+	// current_vertex = (t_val *)malloc(sizeof(t_val));
+	// current_vertex->height = 0;
 	graph->visited[search_item(info->room_start)] = 1;
 	enqueue(queue, info->room_start, NULL);
 	while (!is_empty_queue(queue))
@@ -14,21 +15,20 @@ int			bfs(t_graph *graph, t_queue *queue, t_info *info)
 		tmp = graph->adj_list[search_item(current_vertex->content)];
 		while (tmp)
 		{
-			adj_vertex = tmp->vertex;
-			if (graph->visited[search_item(adj_vertex)] == 0)
+			if (!graph->visited[search_item(tmp->vertex)])
 			{
-				graph->visited[search_item(adj_vertex)] = 1;
-				enqueue(queue, adj_vertex, current_vertex);
+				graph->visited[search_item(tmp->vertex)] = graph->visited[search_item(tmp->vertex)] + 1;
+				enqueue(queue, tmp->vertex, current_vertex);
 			}
 			tmp = tmp->next;
 		}
 	}
-			int i = 3;
+
 	while (current_vertex)
 	{
-		if (current_vertex->papa)
-			ft_printf("way(%d) = %s\n", i--, current_vertex->papa->content);
-		current_vertex = current_vertex->papa;
+		if (current_vertex->parent)
+			printf("%s ", current_vertex->parent->content);
+		current_vertex = current_vertex->parent;
 	}
 	return (1);
 }
@@ -41,6 +41,11 @@ t_list			*create_lst()
 	lst = NULL;
 	while (get_next_line(0, &line) > 0)
 		push_back(&lst, line);
+	if (lst == NULL)
+	{
+		ft_putstr_fd("file empty\n", 2);
+		exit (1);
+	}
 	return (lst);
 }
 
@@ -75,7 +80,9 @@ void			parsing_ants()
 			add_vertices(graph, lst->head);
 		lst->head = lst->head->next;
 	}
-	print_graph(graph);
-	print_info(info);
-	bfs(graph, queue, info);
+	// print_graph(graph);
+	// print_info(info);
+	int i = -1;
+	while (++i < 2)
+		bfs(graph, queue, info);
 }

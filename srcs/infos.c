@@ -43,20 +43,16 @@ void			parse_nb_vertices(t_nodes *node, t_info *info)
 
 void			parse_end_start(t_info *info, char flag, t_nodes **node)
 {
-	unsigned int len;
+	char			**split;
 
-	len = 0;
-	while ((*node)->next->data[len] >= '0' && (*node)->next->data[len] <= '9')
-		len++;
+	split = ft_strsplit((*node)->next->data, ' ');
 	if (!flag)
-	{
-		info->room_start = (char *)malloc(sizeof(char) * (len));
-		ft_strncpy(info->room_start, (*node)->next->data, len);
-	}
+		info->room_start = ft_strdup(split[0]);
 	else
-	{
-		info->room_end = (char *)malloc(sizeof(char) * (len));
-		ft_strncpy(info->room_end, (*node)->next->data, len);
-	}
+		info->room_end = ft_strdup(split[0]);
+	free(split[0]);
+	free(split[1]);
+	free(split[2]);
+	free(split);
 	(*node) = (*node)->next;
 }
