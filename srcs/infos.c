@@ -50,9 +50,9 @@ void			parse_end_start(t_info *info, char flag, t_nodes **node)
 		info->room_start = ft_strdup(split[0]);
 	else
 		info->room_end = ft_strdup(split[0]);
+	ft_printf("SPLIT 0 = %s\n", split[0]);
 	free(split[0]);
 	free(split[1]);
-	free(split[2]);
 	free(split);
 	(*node) = (*node)->next;
 }
