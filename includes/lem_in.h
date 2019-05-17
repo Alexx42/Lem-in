@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 04:04:37 by Alex              #+#    #+#             */
-/*   Updated: 2019/05/16 16:44:31 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/05/16 21:15:56 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 typedef struct		s_adj
 {
 	char 			*vertex;
+	char			flag;
 	struct s_adj	*next;
 }					t_adj;
 
@@ -80,7 +81,7 @@ void			create_hash(t_list *lst);
 */
 
 void				push_back(t_list **lst, char *str);
-void				remove_idx_elements(t_adj **lst, int idx);
+void				remove_idx_elements(t_adj **lst, char *str);
 
 /*
 ** INFOS
