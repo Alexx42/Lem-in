@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 04:04:37 by Alex              #+#    #+#             */
-/*   Updated: 2019/05/16 21:15:56 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/05/17 12:30:23 by anjansse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,5 +126,11 @@ t_val			*dequeue(t_queue *queue);
 void			add_edge(t_graph *graph, char *src, char *dst);
 t_graph			*new_graph(int num_vertices);
 t_adj			*new_adj(char *val);
+
+/*
+** ERROR
+*/
+
+int				check_error(char *str);
 
 #endif
