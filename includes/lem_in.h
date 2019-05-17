@@ -6,11 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 04:04:37 by Alex              #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2019/05/17 13:59:14 by ale-goff         ###   ########.fr       */
-=======
-/*   Updated: 2019/05/17 12:30:23 by anjansse         ###   ########.fr       */
->>>>>>> 3438582bfa996a281b2dfa56ebafe9b9a181f4fc
+/*   Updated: 2019/05/17 14:19:35 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +135,7 @@ t_adj			*new_adj(char *val);
 ** ERROR
 */
 
-int				check_error(char *str);
+void				check_error(char *str);
+
 
 #endif
