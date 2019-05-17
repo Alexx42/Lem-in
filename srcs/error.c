@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anjansse <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:00:30 by anjansse          #+#    #+#             */
-/*   Updated: 2019/05/16 14:36:40 by anjansse         ###   ########.fr       */
+/*   Updated: 2019/05/17 14:20:49 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <lem_in.h>
 
-t_list				*check_error(t_list *lst, char c)
+void				check_error(char *str)
 {
-	//while ()
-	if (c)
-		return (lst);
-	return (lst);
+	if (str[0] == 'L')
+	{
+		ft_printf("ERROR\n");
+	}
 }
