@@ -20,13 +20,16 @@ t_graph		*new_graph(int num_vertices)
 	if ((new_graph = (t_graph*)malloc(sizeof(t_graph))) == NULL)
 		return (NULL);
 	new_graph->nb_vertices = num_vertices;
+	new_graph->count = 0;
 	new_graph->nb_ways = (int **)malloc(sizeof(int*) * (num_vertices + 1));
 	new_graph->adj_list = (t_adj **)malloc(sizeof(t_adj*) * (num_vertices));
+	new_graph->path = (t_val **)malloc(sizeof(t_val *) * num_vertices);
 	i = 0;
 	new_graph->visited = (int *)malloc(sizeof(int) * (num_vertices));
 	while (i < num_vertices)
 	{
 		new_graph->adj_list[i] = NULL;
+		new_graph->path[i] = (t_val *)malloc(sizeof(t_val) * num_vertices);
 		new_graph->nb_ways[i] = (int *)malloc(sizeof(int) * 3);
 		new_graph->nb_ways[i][0] = 0;
 		new_graph->nb_ways[i][1] = 0;
