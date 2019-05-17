@@ -29,7 +29,6 @@ t_graph		*new_graph(int num_vertices)
 	while (i < num_vertices)
 	{
 		new_graph->adj_list[i] = NULL;
-		new_graph->path[i] = (t_val *)malloc(sizeof(t_val) * num_vertices);
 		new_graph->nb_ways[i] = (int *)malloc(sizeof(int) * 3);
 		new_graph->nb_ways[i][0] = 0;
 		new_graph->nb_ways[i][1] = 0;

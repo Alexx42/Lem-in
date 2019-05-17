@@ -116,26 +116,17 @@ void			parsing_ants()
 			add_vertices(graph, lst->head);
 		lst->head = lst->head->next;
 	}
-	// while (idx < info->nb_vertices)
-	// {
-	// 	(*graph)->visited[idx] = 0;
-	// 	idx++;
-	// }
 	while (bfs(&graph, queue, info))
 		;
 	int v = 0;
 	while (v < graph->count)
 	{
 		printf("\nPATH[%d]\n", v);
-		int i = 0;
 		while (graph->path[v]->parent)
 		{
-			
 			printf("%s ", graph->path[v]->content);
 			graph->path[v] = graph->path[v]->parent;
-			i++;
 		}
-		// graph->path = graph->
 		v++;
 	}
 }
