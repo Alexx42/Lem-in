@@ -1,40 +1,61 @@
 #include <lem_in.h>
 
-int			bfs(t_graph *graph, t_queue *queue, t_info *info)
+int			bfs_help(t_graph **graph, t_val *current_vertex, t_info *info, t_adj *tmp)
 {
-	t_val	*current_vertex;
-	t_adj	*tmp;
-	int		idx;
+	int		v;
+	t_adj	*tmp2;
+	t_val	*tmpcur;
 
+	v = -1;
+	if (!ft_strcmp(info->room_end, tmp->vertex))
+	{
+		while (++v < (*graph)->nb_vertices)
+		{
+			tmp2 = (*graph)->adj_list[v];
+			while (tmp2)
+			{
+				tmpcur = current_vertex;
+				while (current_vertex)
+				{
+					if (current_vertex->parent)
+						if (!ft_strcmp(tmp2->vertex, current_vertex->content))
+						{
+							printf("%s ", current_vertex->content);
+							tmp2->flag = 1;
+						}
+					current_vertex = current_vertex->parent;
+				}
+				current_vertex = tmpcur;
+				tmp2 = tmp2->next;
+			}
+		}
+		return (1);
+	}
+	return (0);
+}
+
+int			bfs(t_graph **graph, t_queue *queue, t_info *info)
+{
+	t_val		*current_vertex;
+	t_adj		*tmp;
+	
 	enqueue(queue, info->room_start, NULL);
-
-	idx = 0;
+	(*graph)->visited[search_item(info->room_start)] = 1;
 	while (!is_empty_queue(queue))
 	{
 		current_vertex = dequeue(queue);
-		tmp = graph->adj_list[search_item(current_vertex->content)];
-		// graph->nb_ways[idx][0]++;
-		while (tmp)
+		tmp = (*graph)->adj_list[search_item(current_vertex->content)];
+		while (tmp && tmp->flag == 0)
 		{
-			if (!graph->visited[search_item(tmp->vertex)])
+			if (!(*graph)->visited[search_item(tmp->vertex)])
 			{
-				if (!ft_strcmp(info->room_end, tmp->vertex))
-				{
-					//add path
-					return 1;
-				}
+				if (bfs_help(graph, current_vertex, info, tmp))
+					return (1);
 				enqueue(queue, tmp->vertex, current_vertex);
-				remove_idx_elements(&tmp, search_item(current_vertex->content));
+				(*graph)->visited[search_item(current_vertex->content)] = 1;
 			}
 			tmp = tmp->next;
 		}
-	}
-
-	while (current_vertex)
-	{
-		if (current_vertex->parent)
-			printf("%s ", current_vertex->parent->content);
-		current_vertex = current_vertex->parent;
 	}
 	return (0);
 }
@@ -69,7 +90,9 @@ void			parsing_ants()
 	t_queue		*queue;
 	t_list		*lst;
 	t_graph		*graph;
+	size_t		idx;
 	
+	idx = 0;
 	queue = create_queue();
 	lst = create_lst();
 	create_hash(lst);
@@ -86,9 +109,11 @@ void			parsing_ants()
 			add_vertices(graph, lst->head);
 		lst->head = lst->head->next;
 	}
-	// print_graph(graph);
-	// print_info(info);
-	while (bfs(graph, queue, info))
+	// while (idx < info->nb_vertices)
+	// {
+	// 	(graph)->visited[idx] = 0;
+	// 	idx++;
+	// }
+	while (bfs(&graph, queue, info))
 		;
-	print_graph(graph);
 }

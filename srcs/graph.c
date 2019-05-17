@@ -7,6 +7,7 @@ t_adj		*new_adj(char *val)
 	if ((adj = (t_adj*)malloc(sizeof(t_adj))) == NULL)
 		return (NULL);
 	adj->vertex = val;
+	adj->flag = 0;
 	adj->next = NULL;
 	return (adj);
 }

@@ -27,29 +27,27 @@ static	t_list		*init_list(char *str)
 	return (new_list);
 }
 
-void				remove_idx_elements(t_adj **lst, int idx) {
-	int		i;
+void				remove_idx_elements(t_adj **lst, char *str) {
+	// int		i;
 
-	i = 0;
-	if (!*lst) {
-		return ;
-	}
-	t_adj *tmp = (*lst);
-	t_adj	*next;
-	if (idx == 0) {
-		(*lst) = tmp->next;
+	// while ((*lst)) {
+	// 	printf("val = %s ", (*lst)->vertex);
+	// 	(*lst) = (*lst)->next;
+	// }
+	t_adj *tmp = *lst;
+	t_adj *prev;
+	if (tmp != NULL && !ft_strcmp(tmp->vertex, str)) {
+		*lst = tmp->next;
 		free(tmp);
 		return ;
 	}
-	while (tmp != NULL && i < idx - 1) {
+	while (tmp != NULL && ft_strcmp(tmp->vertex, str)) {
+		prev = tmp;
 		tmp = tmp->next;
 	}
-	if (tmp == NULL || tmp->next == NULL) {
-		return ;
-	}
-	next = (tmp)->next->next;
-	free(tmp->next);
-	tmp->next = next;
+	if (prev == NULL) return ;
+	prev->flag = 1;
+	// free(tmp);
 }
 
 void				push_back(t_list **lst, char *str)

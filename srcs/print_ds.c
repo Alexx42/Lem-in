@@ -65,7 +65,6 @@ void		print_graph(t_graph *graph)
 	while (v < graph->nb_vertices)
 	{
 		tmp = graph->adj_list[v];
-		printf("nb ways = %d\n", graph->nb_ways[v][1]);
 		printf("Adjacency list of vertex %s\n", hash_array[v]->data);
 		while (tmp)
 		{
