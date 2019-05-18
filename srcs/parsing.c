@@ -119,14 +119,20 @@ void			parsing_ants()
 	while (bfs(&graph, queue, info))
 		;
 	int v = 0;
+	graph->nrip = malloc(sizeof(int) * graph->count + 1);
 	while (v < graph->count)
 	{
 		printf("\nPATH[%d]\n", v);
+		graph->nrip[v] = 0;
 		while (graph->path[v]->parent)
 		{
+			graph->nrip[v]++;
 			printf("%s ", graph->path[v]->content);
 			graph->path[v] = graph->path[v]->parent;
 		}
+		printf("\nTHIS PATH HAS %d ROOMS\n", graph->nrip[v]);
 		v++;
 	}
+	if (dispatcher(graph, info) == 1)
+		ft_putstr("done\n");
 }

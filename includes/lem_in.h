@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 04:04:37 by Alex              #+#    #+#             */
-/*   Updated: 2019/05/17 19:57:50 by anjansse         ###   ########.fr       */
+/*   Updated: 2019/05/17 23:31:31 by anjansse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef struct		s_graph
 {
 	char			nb_vertices;
 	t_val			**path;
-	int				*nb_room_in_paths;
+	int				*nrip;
 	int				count;
 	int				**nb_ways;
 	t_adj			**adj_list;
