@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dispatch.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anjansse <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 15:14:48 by anjansse          #+#    #+#             */
-/*   Updated: 2019/05/18 13:33:03 by anjansse         ###   ########.fr       */
+/*   Updated: 2019/05/18 14:20:23 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int					dispatcher(t_graph *graph, t_info *info)
 	int			ant_index;
 	int			nb_for_path[graph->count];
 
-	c = 0;
 	ant_index = 0;
 	init_id(nb_for_path, graph->count);
 	ft_printf("NUMBER OF ANTS = %d\n", info->nb_ants);
@@ -41,13 +40,12 @@ int					dispatcher(t_graph *graph, t_info *info)
 		while (c < graph->count)
 		{
 			ft_printf("value of id is %d\n", nb_for_path[c]);
-			if ((nb_for_path[c] + graph->nrip[c]) <= graph->nrip[c + 1])
+			if (c + 1 < graph->count && (nb_for_path[c] + graph->nrip[c]) <= graph->nrip[c + 1])
 			{
-				//ft_putstr("hello\n");
 				nb_for_path[c]++;
 				ant_index++;
 			}
-			else if ((nb_for_path[c] + graph->nrip[c]) > graph->nrip[c + 1])
+			else if (c + 1 < graph->count && graph->nrip[c + 1] && (nb_for_path[c] + graph->nrip[c]) > graph->nrip[c + 1])
 			{
 				c++;
 			}
