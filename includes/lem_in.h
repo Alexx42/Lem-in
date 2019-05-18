@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 04:04:37 by Alex              #+#    #+#             */
-/*   Updated: 2019/05/17 14:19:35 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/05/17 19:57:50 by anjansse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct 		s_info
 {
 	char			*room_start;
 	char			*room_end;
-	size_t			nb_ants;
+	int				nb_ants;
 	size_t			nb_vertices;
 }					t_info;
 
@@ -54,6 +54,7 @@ typedef struct		s_graph
 {
 	char			nb_vertices;
 	t_val			**path;
+	int				*nb_room_in_paths;
 	int				count;
 	int				**nb_ways;
 	t_adj			**adj_list;
@@ -130,6 +131,12 @@ t_val			*dequeue(t_queue *queue);
 void			add_edge(t_graph *graph, char *src, char *dst);
 t_graph			*new_graph(int num_vertices);
 t_adj			*new_adj(char *val);
+
+/*
+** DISPATCHER
+*/
+
+int				dispatcher(t_graph *graph, t_info *info);
 
 /*
 ** ERROR
