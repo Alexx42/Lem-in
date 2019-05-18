@@ -6,7 +6,7 @@
 /*   By: anjansse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 15:14:48 by anjansse          #+#    #+#             */
-/*   Updated: 2019/05/17 21:29:31 by anjansse         ###   ########.fr       */
+/*   Updated: 2019/05/18 00:37:48 by anjansse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,23 @@ int					dispatcher(t_graph *graph, t_info *info)
 	ft_printf("NUMBER OF ANTS = %d\n", info->nb_ants);
 	while (ant_index < info->nb_ants)
 	{
+		ft_putstr("BREAK\n");
 		c = 0;
 		while (c < graph->count)
 		{
-			//ft_printf("C = %d\n", c);
-			if ((nb_for_path[c] + ant_index) <= graph->nb_room_in_paths[c])
+			printf("ANT %d GOES BY PATH %d\n", ant_index + 1, c);
+			if (graph->nrip[c + 1] && (nb_for_path[c] + graph->nrip[c]) < graph->nrip[c + 1])
 			{
-				printf("INDEX = %d\n", ant_index);
+				nb_for_path[c]++;
 				ant_index++;
 			}
-			c++;
+			else if (graph->nrip[c + 1] && (nb_for_path[c] + graph->nrip[c]) >= graph->nrip[c + 1])
+			{
+				nb_for_path[c]++;
+				ant_index++;
+				c++;
+			}
+			printf("C = %d\tMAX = %d\n", c, graph->count);
 		}
 	}
 	return (1);
