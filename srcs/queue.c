@@ -38,7 +38,7 @@ t_val			*dequeue(t_queue *queue)
 {
 	t_val		*val;
 
-	val = queue->rear;
+	val = queue->front;
 	if (is_empty_queue(queue))
 		return (NULL);
 	if (queue->front == queue->rear)
