@@ -45,6 +45,8 @@ void			parse_end_start(t_info *info, char flag, t_nodes **node)
 {
 	char			**split;
 
+	while ((*node)->next->data[0] == '#')
+		(*node) = (*node)->next;
 	split = ft_strsplit((*node)->next->data, ' ');
 	if (!flag)
 		info->room_start = ft_strdup(split[0]);

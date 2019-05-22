@@ -12,6 +12,11 @@ RED = \x1b[31m
 GREEN = \x1b[32m
 RESET = \x1b[0m
 
+git:
+	@git add .
+	@git commit -C \"$(C)\"
+	@git push
+
 all: $(NAME)
 
 %.o: %.c

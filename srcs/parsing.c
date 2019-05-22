@@ -17,6 +17,7 @@ void			bfs_help(t_graph **graph, t_val *current_vertex)
 	t_adj	*tmp2;
 	t_val	*tmpcur;
 
+	tmpcur = NULL;
 	v = -1;
 	while (++v < (*graph)->nb_vertices)
 	{
@@ -28,7 +29,8 @@ void			bfs_help(t_graph **graph, t_val *current_vertex)
 			{
 				if (current_vertex->parent)
 					if (!ft_strcmp(tmp2->vertex, current_vertex->content))
-						tmp2->flag = 1;
+						if (ft_strcmp(tmp2->vertex, "re"))
+							tmp2->flag = 1;
 				current_vertex = current_vertex->parent;
 			}
 			current_vertex = tmpcur;
@@ -42,7 +44,15 @@ int			bfs(t_graph **graph, t_queue *queue, t_info *info)
 {
 	t_val		*current_vertex;
 	t_adj		*tmp;
-	
+	size_t		idx;
+
+	idx = 0;
+	while (idx < info->nb_vertices)
+	{
+		(*graph)->visited[idx] = 0;
+		 idx++;
+	}
+	queue = create_queue();
 	enqueue(queue, info->room_start, NULL);
 	(*graph)->visited[search_item(info->room_start)] = 1;
 	while (!is_empty_queue(queue))
@@ -55,11 +65,12 @@ int			bfs(t_graph **graph, t_queue *queue, t_info *info)
 			{
 				if (!ft_strcmp(info->room_end, tmp->vertex))
 				{
-					bfs_help(graph, current_vertex);
+					enqueue(queue, tmp->vertex, current_vertex);
+					bfs_help(graph, queue->rear);
 					return (1);
 				}
 				enqueue(queue, tmp->vertex, current_vertex);
-				(*graph)->visited[search_item(current_vertex->content)] = 1;
+				(*graph)->visited[search_item(tmp->vertex)] = 1;
 			}
 			tmp = tmp->next;
 		}
@@ -93,13 +104,12 @@ void			add_vertices(t_graph *graph, t_nodes *node)
 
 void			parsing_ants()
 {
+	t_val		*tmp;
 	t_info		*info;
-	t_queue		*queue;
 	t_list		*lst;
 	t_graph		*graph;
-	// size_t		idx;
-	
-	// idx = 0;
+	t_queue		*queue;
+
 	queue = create_queue();
 	lst = create_lst();
 	create_hash(lst);
@@ -118,21 +128,25 @@ void			parsing_ants()
 	}
 	while (bfs(&graph, queue, info))
 		;
+	ft_putstr("bfs done\n");
 	int v = 0;
 	graph->nrip = (int *)malloc(sizeof(int) * graph->count + 1);
 	while (v < graph->count)
 	{
+		printf("SALUT\n");
 		printf("\nPATH[%d]\n", v);
 		graph->nrip[v] = 0;
+		tmp = graph->path[v];
 		while (graph->path[v]->parent)
 		{
 			graph->nrip[v]++;
 			printf("%s ", graph->path[v]->content);
 			graph->path[v] = graph->path[v]->parent;
 		}
+		graph->path[v] = tmp;
 		printf("\nTHIS PATH HAS %d ROOMS\n", graph->nrip[v]);
 		v++;
 	}
-	if (dispatcher(graph, info))
+	if (dispatcher(graph, info, tmp))
 		ft_putstr("done\n");
 }

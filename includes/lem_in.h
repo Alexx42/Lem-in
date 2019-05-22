@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 04:04:37 by Alex              #+#    #+#             */
-/*   Updated: 2019/05/17 23:31:31 by anjansse         ###   ########.fr       */
+/*   Updated: 2019/05/20 16:39:58 by anjansse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <ft_printf.h>
 
 # define SIZE 500000
-
 
 typedef struct		s_adj
 {
@@ -136,7 +135,7 @@ t_adj			*new_adj(char *val);
 ** DISPATCHER
 */
 
-int				dispatcher(t_graph *graph, t_info *info);
+int				dispatcher(t_graph *graph, t_info *info, t_val *head);
 
 /*
 ** ERROR
