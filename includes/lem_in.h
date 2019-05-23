@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 04:04:37 by Alex              #+#    #+#             */
-/*   Updated: 2019/05/20 16:39:58 by anjansse         ###   ########.fr       */
+/*   Updated: 2019/05/23 12:41:58 by anjansse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ typedef struct		s_val
 
 typedef struct		s_graph
 {
+	int				limit;
+	char			verif;
 	char			nb_vertices;
 	t_val			**path;
 	int				*nrip;
@@ -135,7 +137,7 @@ t_adj			*new_adj(char *val);
 ** DISPATCHER
 */
 
-int				dispatcher(t_graph *graph, t_info *info, t_val *head);
+int				dispatcher(t_graph *graph, t_info *info);
 
 /*
 ** ERROR

@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/13 15:59:44 by ale-goff          #+#    #+#             */
-/*   Updated: 2018/09/13 20:45:06 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/05/23 13:00:24 by anjansse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,5 @@
 
 void	ft_putstr(char const *s)
 {
-	while (*s)
-		write(1, s++, 1);
+	write(1, s, ft_strlen(s));
 }

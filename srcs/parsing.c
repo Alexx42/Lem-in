@@ -2,11 +2,6 @@
 
 void			add_path(t_graph **graph, t_val *current_vertex)
 {
-	// while (current_vertex->parent)
-	// {
-		
-	// 	current_vertex = current_vertex->content;
-	// }
 	(*graph)->path[(*graph)->count] = current_vertex;
 	(*graph)->count++;
 }
@@ -44,14 +39,7 @@ int			bfs(t_graph **graph, t_queue *queue, t_info *info)
 {
 	t_val		*current_vertex;
 	t_adj		*tmp;
-	size_t		idx;
 
-	idx = 0;
-	while (idx < info->nb_vertices)
-	{
-		(*graph)->visited[idx] = 0;
-		 idx++;
-	}
 	queue = create_queue();
 	enqueue(queue, info->room_start, NULL);
 	(*graph)->visited[search_item(info->room_start)] = 1;
@@ -113,7 +101,7 @@ void			parsing_ants()
 	queue = create_queue();
 	lst = create_lst();
 	create_hash(lst);
-	print_hash();
+	//print_hash();
 	info = parse_info(lst->head);
 	graph = new_graph(info->nb_vertices);
 	while (lst && lst->head)
@@ -128,21 +116,22 @@ void			parsing_ants()
 	}
 	while (bfs(&graph, queue, info))
 		;
+	//printf("done\n");
 	int v = 0;
 	graph->nrip = (int *)malloc(sizeof(int) * graph->count + 1);
 	while (v < graph->count)
 	{
-		//printf("\nPATH[%d]\n", v);
+		printf("\nPATH[%d]\n", v);
 		graph->nrip[v] = 0;
 		tmp = graph->path[v];
 		while (graph->path[v]->parent)
 		{
 			graph->nrip[v]++;
-			//printf("%s ", graph->path[v]->content);
+			printf("%s ", graph->path[v]->content);
 			graph->path[v] = graph->path[v]->parent;
 		}
 		graph->path[v] = tmp;
-		//printf("\nTHIS PATH HAS %d ROOMS\n", graph->nrip[v]);
+		printf("\nTHIS PATH HAS %d ROOMS\n", graph->nrip[v]);
 		v++;
 	}
 	if (dispatcher(graph, info))
