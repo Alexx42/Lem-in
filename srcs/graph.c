@@ -1,4 +1,5 @@
 #include <lem_in.h>
+#include "../includes/lem_in.h"
 
 t_adj		*new_adj(char *val)
 {

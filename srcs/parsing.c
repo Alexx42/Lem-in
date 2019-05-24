@@ -1,4 +1,6 @@
 #include <lem_in.h>
+#include "../libft/libft.h"
+#include "../includes/lem_in.h"
 
 void			add_path(t_graph **graph, t_val *current_vertex)
 {
@@ -8,13 +10,12 @@ void			add_path(t_graph **graph, t_val *current_vertex)
 
 void			bfs_help(t_graph **graph, t_val *current_vertex, t_info *info)
 {
-	int		v;
+	uint32_t v;
 	t_adj	*tmp2;
 	t_val	*tmpcur;
 
-	tmpcur = NULL;
 	v = -1;
-	while (++v < (*graph)->nb_vertices)
+	while (++v < info->nb_vertices)
 	{
 		tmp2 = (*graph)->adj_list[v];
 		while (tmp2)
@@ -39,16 +40,28 @@ int			bfs(t_graph **graph, t_queue *queue, t_info *info)
 {
 	t_val		*current_vertex;
 	t_adj		*tmp;
+	size_t		i;
+	uint32_t 	count;
 
+	i = 0;
+	count = 0;
+	while (i < info->nb_vertices)
+	{
+		(*graph)->visited[i] = 0;
+		i++;
+	}
 	queue = create_queue();
 	enqueue(queue, info->room_start, NULL);
 	(*graph)->visited[search_item(info->room_start)] = 1;
 	while (!is_empty_queue(queue))
 	{
+		count++;
 		current_vertex = dequeue(queue);
 		tmp = (*graph)->adj_list[search_item(current_vertex->content)];
-		while (tmp && tmp->flag == 0)
+		while (tmp && !tmp->flag)
 		{
+			if (count == info->nb_vertices - 1)
+				return (0);
 			if (!(*graph)->visited[search_item(tmp->vertex)])
 			{
 				if (!ft_strcmp(info->room_end, tmp->vertex))
@@ -70,13 +83,23 @@ t_list			*create_lst()
 {
 	t_list		*lst;
 	char		*line;
+	uint32_t 	count_start;
+	uint32_t 	count_end;
 
+	count_start = 0;
+	count_end = 0;
 	lst = NULL;
 	while (get_next_line(0, &line) > 0)
-		push_back(&lst, line);
-	if (lst == NULL)
 	{
-		ft_putstr_fd("file empty\n", 2);
+		if (!ft_strcmp("##start", line))
+			count_start++;
+		else if (!ft_strcmp("##end", line))
+			count_end++;
+		push_back(&lst, line);
+	}
+	if (lst == NULL || count_start != 1 || count_end != 1)
+	{
+		ft_putstr_fd("ERROR\n", 2);
 		exit (1);
 	}
 	return (lst);
@@ -101,11 +124,12 @@ void			parsing_ants()
 	queue = create_queue();
 	lst = create_lst();
 	create_hash(lst);
-	//print_hash();
 	info = parse_info(lst->head);
-	graph = new_graph(info->nb_vertices);
+	graph = new_graph((int)info->nb_vertices);
 	while (lst && lst->head)
 	{
+        if (check_error(lst->head->data))
+            break ;
 		if (ft_strequ(lst->head->data, "##start"))
 			parse_end_start(info, 0, &lst->head);
 		else if (ft_strequ(lst->head->data, "##end"))
@@ -114,24 +138,27 @@ void			parsing_ants()
 			add_vertices(graph, lst->head);
 		lst->head = lst->head->next;
 	}
+    print_graph(graph);
+    print_hash();
 	while (bfs(&graph, queue, info))
 		;
-	//printf("done\n");
+	if (!graph->path || !graph->path[0])
+	{
+		ft_putstr_fd("ERROR\n", 2);
+		exit (1);
+	}
 	int v = 0;
 	graph->nrip = (int *)malloc(sizeof(int) * graph->count + 1);
 	while (v < graph->count)
 	{
-		printf("\nPATH[%d]\n", v);
 		graph->nrip[v] = 0;
 		tmp = graph->path[v];
 		while (graph->path[v]->parent)
 		{
 			graph->nrip[v]++;
-			printf("%s ", graph->path[v]->content);
 			graph->path[v] = graph->path[v]->parent;
 		}
 		graph->path[v] = tmp;
-		printf("\nTHIS PATH HAS %d ROOMS\n", graph->nrip[v]);
 		v++;
 	}
 	if (dispatcher(graph, info))

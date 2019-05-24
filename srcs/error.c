@@ -12,10 +12,9 @@
 
 #include <lem_in.h>
 
-void				check_error(char *str)
+int			check_error(char *str)
 {
 	if (str[0] == 'L')
-	{
-		ft_printf("ERROR\n");
-	}
+		return (1);
+	return (0);
 }
