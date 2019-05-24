@@ -15,7 +15,7 @@ void		create_hash(t_list *lst)
         printf("node = %s\n", node->data);
 		if (node->data[0] == '#')
 			;
-		elsel
+		else
 		{
 			split = ft_strsplit(node->data, ' ');
 			if (split && split[0] && split[1] && split[2])

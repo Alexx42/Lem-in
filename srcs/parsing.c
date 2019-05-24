@@ -105,12 +105,15 @@ t_list			*create_lst()
 	return (lst);
 }
 
-void			add_vertices(t_graph *graph, t_nodes *node)
+int     add_vertices(t_graph *graph, t_nodes *node)
 {
 	char		**nb;
 
 	nb = ft_strsplit(node->data, '-');
+    if (search_item(nb[0]) == -1 || search_item(nb[1]) == -1)
+        return (1);
 	add_edge(graph, nb[0], nb[1]);
+	return (0);
 }
 
 void			parsing_ants()
@@ -135,7 +138,8 @@ void			parsing_ants()
 		else if (ft_strequ(lst->head->data, "##end"))
 			parse_end_start(info, 1, &lst->head);
 		else if (ft_strchr(lst->head->data, '-') != NULL)
-			add_vertices(graph, lst->head);
+			if (add_vertices(graph, lst->head))
+				break ;
 		lst->head = lst->head->next;
 	}
     print_graph(graph);
