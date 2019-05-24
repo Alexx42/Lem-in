@@ -4,6 +4,7 @@
 
 void			add_path(t_graph **graph, t_val *current_vertex)
 {
+	printf("pointer = %p\n", current_vertex);
 	(*graph)->path[(*graph)->count] = current_vertex;
 	(*graph)->count++;
 }
@@ -25,7 +26,7 @@ void			bfs_help(t_graph **graph, t_val *current_vertex, t_info *info)
 			{
 				if (current_vertex->parent)
 					if (!ft_strcmp(tmp2->vertex, current_vertex->content))
-						if (ft_strcmp(tmp2->vertex, info->room_end))
+						 if (ft_strcmp(tmp2->vertex, info->room_end) || info->nb_vertices == 2 || !current_vertex->parent->parent)
 							tmp2->flag = 1;
 				current_vertex = current_vertex->parent;
 			}
@@ -41,10 +42,8 @@ int			bfs(t_graph **graph, t_queue *queue, t_info *info)
 	t_val		*current_vertex;
 	t_adj		*tmp;
 	size_t		i;
-	uint32_t 	count;
 
 	i = 0;
-	count = 0;
 	while (i < info->nb_vertices)
 	{
 		(*graph)->visited[i] = 0;
@@ -55,14 +54,11 @@ int			bfs(t_graph **graph, t_queue *queue, t_info *info)
 	(*graph)->visited[search_item(info->room_start)] = 1;
 	while (!is_empty_queue(queue))
 	{
-		count++;
 		current_vertex = dequeue(queue);
 		tmp = (*graph)->adj_list[search_item(current_vertex->content)];
-		while (tmp && !tmp->flag)
+		while (tmp)
 		{
-			if (count == info->nb_vertices - 1)
-				return (0);
-			if (!(*graph)->visited[search_item(tmp->vertex)])
+			if (!(*graph)->visited[search_item(tmp->vertex)] && !tmp->flag)
 			{
 				if (!ft_strcmp(info->room_end, tmp->vertex))
 				{
@@ -142,8 +138,8 @@ void			parsing_ants()
 				break ;
 		lst->head = lst->head->next;
 	}
-    print_graph(graph);
-    print_hash();
+//    print_graph(graph);
+//    print_hash();
 	while (bfs(&graph, queue, info))
 		;
 	if (!graph->path || !graph->path[0])
@@ -159,6 +155,7 @@ void			parsing_ants()
 		tmp = graph->path[v];
 		while (graph->path[v]->parent)
 		{
+
 			graph->nrip[v]++;
 			graph->path[v] = graph->path[v]->parent;
 		}
