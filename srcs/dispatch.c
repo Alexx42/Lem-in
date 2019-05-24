@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
+#include "../includes/lem_in.h"
+#include "../libft/libft.h"
 
 static int			*init_id(int *array, int max)
 {
@@ -132,7 +134,7 @@ void				send_it(int *ant_path, t_graph *graph, t_info *info)
 		ant_index = ant_index - i;
 		if (ant == info->nb_ants)
 		{
-			while (ft_strcmp(tmp[info->nb_ants - 1]->content, info->room_end))
+			while (tmp[info->nb_ants - 1] && ft_strcmp(tmp[info->nb_ants - 1]->content, info->room_end))
 			{
 				graph->limit = ant;
 				graph->verif = 0;

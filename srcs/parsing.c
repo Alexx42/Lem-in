@@ -4,7 +4,6 @@
 
 void			add_path(t_graph **graph, t_val *current_vertex)
 {
-	printf("pointer = %p\n", current_vertex);
 	(*graph)->path[(*graph)->count] = current_vertex;
 	(*graph)->count++;
 }
