@@ -73,14 +73,14 @@ typedef struct		s_queue
 ** HASH
 */
 
-t_hash		*hash_array[SIZE];
-t_hash		*dummy_item;
-t_hash		*item;
+t_hash				*hash_array[SIZE];
+t_hash				*dummy_item;
+t_hash				*item;
 
-int				hash_code(int key);
-void			insert_data(int key, char *data);
-int				search_item(char *data);
-void			create_hash(t_list *lst);
+int					hash_code(int key);
+void				insert_data(int key, char *data);
+int					search_item(char *data);
+void				create_hash(t_list *lst);
 
 /*
 ** LISTS
@@ -94,7 +94,7 @@ void				remove_idx_elements(t_adj **lst, char *str);
 */
 
 t_info				*parse_info(t_nodes *node);
-void			parse_nb_vertices(t_nodes *node, t_info *info);
+void				parse_nb_vertices(t_nodes *node, t_info *info);
 
 
 /*
@@ -110,40 +110,39 @@ void				parse_end_start(t_info *info, char flag, t_nodes **node);
 ** PRINTING FUNC
 */
 
-void		print_info(t_info *info);
-void		print_matrix(char **matrix, t_info *info);
-void		print_hash();
-void		print_graph(t_graph *graph);
+void				print_info(t_info *info);
+void				print_matrix(char **matrix, t_info *info);
+void				print_hash();
+void				print_graph(t_graph *graph);
 
 /*
 ** QUEUE
 */
 
-int				is_empty_queue(t_queue *queue);
-t_queue			*create_queue();
-void			enqueue(t_queue *queue, char *data, t_val *ok);
-t_val			*dequeue(t_queue *queue);
+int					is_empty_queue(t_queue *queue);
+t_queue				*create_queue();
+void				enqueue(t_queue *queue, char *data, t_val *ok);
+t_val				*dequeue(t_queue *queue);
 
 
 /*
 ** GRAPH
 */
 
-void			add_edge(t_graph *graph, char *src, char *dst);
-t_graph			*new_graph(int num_vertices);
-t_adj			*new_adj(char *val);
+void				add_edge(t_graph *graph, char *src, char *dst);
+t_graph				*new_graph(int num_vertices);
+t_adj				*new_adj(char *val);
 
 /*
 ** DISPATCHER
 */
 
-int				dispatcher(t_graph *graph, t_info *info);
+int					dispatcher(t_graph *graph, t_info *info);
 
 /*
 ** ERROR
 */
-
-void				check_error(char *str);
+int					check_error(char *str);
 
 
 #endif
