@@ -14,15 +14,10 @@ void		create_hash(t_list *lst)
 	i = 0;
 	while (node->data && !ft_strchr(node->data, '-'))
 	{
-<<<<<<< HEAD
-=======
-        //printf("node = %s\n", node->data);
->>>>>>> 04a22392f8c1fc821f2b82d1933d9d20ae3e118b
 		if (node->data[0] == '#')
 			;
 		else
 		{
-<<<<<<< HEAD
             line = ft_strchr(node->data, ' ');
             if (line != NULL)
             {
@@ -30,16 +25,6 @@ void		create_hash(t_list *lst)
                 i++;
             }
         }
-=======
-			split = ft_strsplit(node->data, ' ');
-			if (split && split[0] && split[1] && split[2])
-			{
-				//printf("%s\n", split[0]);
-				insert_data(i, split[0]);
-				i++;
-			}
-		}
->>>>>>> 04a22392f8c1fc821f2b82d1933d9d20ae3e118b
 		node = node->next;
 	}
 	lst->head = tmp;
