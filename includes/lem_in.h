@@ -88,7 +88,7 @@ void				create_hash(t_list *lst);
 
 void				push_back(t_list **lst, char *str);
 void				remove_idx_elements(t_adj **lst, char *str);
-
+void				delete_list(t_list **head);
 /*
 ** INFOS
 */
