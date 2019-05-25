@@ -126,6 +126,8 @@ void			parsing_ants()
 	graph = new_graph((int)info->nb_vertices);
 	while (lst && lst->head)
 	{
+		ft_putstr(lst->head->data);
+		ft_putchar('\n');
         if (check_error(lst->head->data))
             break ;
 		if (ft_strequ(lst->head->data, "##start"))
@@ -137,6 +139,7 @@ void			parsing_ants()
 				break ;
 		lst->head = lst->head->next;
 	}
+	ft_putchar('\n');
 //    print_graph(graph);
 //    print_hash();
 	while (bfs(&graph, queue, info))
@@ -162,5 +165,5 @@ void			parsing_ants()
 		v++;
 	}
 	if (dispatcher(graph, info))
-		ft_putchar('\n');
+		exit(0);
 }

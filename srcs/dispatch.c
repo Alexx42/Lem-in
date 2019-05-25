@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 15:14:48 by anjansse          #+#    #+#             */
-/*   Updated: 2019/05/23 13:53:47 by anjansse         ###   ########.fr       */
+/*   Updated: 2019/05/24 17:54:25 by anjansse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static int			*init_id(int *array, int max)
 	}
 	return (array);
 }
-/*
 static void				print_ant_path(int ant, char *room)
 {
 		ft_putchar('L');
@@ -35,7 +34,6 @@ static void				print_ant_path(int ant, char *room)
 		ft_putstr(room);
 		ft_putchar(' ');
 }
-*/
 /*
 void				print_list(t_val *path)
 {
@@ -87,8 +85,8 @@ int					send_ants(t_info *info, t_val **tmp, t_graph *graph, int ant, int *ant_p
 	if (ant < info->nb_ants)
 	{
 		tmp[ant] = graph->path[ant_path[index]];
-		ft_printf("1.L%d-%s ", ant + 1, tmp[ant]->content);
-		//print_ant_path(ant + 1, tmp[ant]->content);
+		//ft_printf("1.L%d-%s ", ant + 1, tmp[ant]->content);
+		print_ant_path(ant + 1, tmp[ant]->content);
 		if (tmp[ant])
 			tmp[ant] = tmp[ant]->parent;
 	}
@@ -98,8 +96,8 @@ int					send_ants(t_info *info, t_val **tmp, t_graph *graph, int ant, int *ant_p
 		{
 			if (tmp[i])
 			{
-				//print_ant_path(i + 1, tmp[i]->content);
-				ft_printf("2.L%d-%s ", i + 1, tmp[i]->content);
+				print_ant_path(i + 1, tmp[i]->content);
+				//ft_printf("2.L%d-%s ", i + 1, tmp[i]->content);
 				tmp[i] = tmp[i]->parent;
 			}
 			i++;
@@ -174,9 +172,7 @@ int					dispatcher(t_graph *graph, t_info *info)
 				ant_path[ant_index] = c;
 			}
 			else if (c + 1 < graph->count && graph->nrip[c + 1] && (nb_for_path[c] + graph->nrip[c]) > graph->nrip[c + 1] && nb_for_path[c + 1] == 0)
-			{
 				c++;
-			}
 			else
 			{
 				nb_for_path[c]++;

@@ -12,7 +12,7 @@ void		create_hash(t_list *lst)
 	i = 0;
 	while (node->data && !ft_strchr(node->data, '-'))
 	{
-        printf("node = %s\n", node->data);
+        //printf("node = %s\n", node->data);
 		if (node->data[0] == '#')
 			;
 		else
@@ -20,7 +20,7 @@ void		create_hash(t_list *lst)
 			split = ft_strsplit(node->data, ' ');
 			if (split && split[0] && split[1] && split[2])
 			{
-                printf("%s\n", split[0]);
+				//printf("%s\n", split[0]);
 				insert_data(i, split[0]);
 				i++;
 			}
