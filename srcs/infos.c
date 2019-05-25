@@ -36,7 +36,9 @@ void			parse_nb_vertices(t_nodes *node, t_info *info)
 		if (node->data[0] == '#')
 			;
 		else if (ft_strchr(node->data, ' ') && ft_strchr(node->data, '-') == NULL)
+		{
 			info->nb_vertices++;
+		}
 		node = node->next;
 	}
 }
