@@ -20,10 +20,8 @@ t_info				*parse_info(t_nodes *node)
 
 	info = init_info();
 	while (node->data)
-	{
 		if (node->data[0] != '#')
 			break ;
-	}
 	info->nb_ants = ft_atoi(node->data);
 	parse_nb_vertices(node, info);
 	return (info);
@@ -36,26 +34,21 @@ void			parse_nb_vertices(t_nodes *node, t_info *info)
 		if (node->data[0] == '#')
 			;
 		else if (ft_strchr(node->data, ' ') && ft_strchr(node->data, '-') == NULL)
-		{
 			info->nb_vertices++;
-		}
 		node = node->next;
 	}
 }
 
 void			parse_end_start(t_info *info, char flag, t_nodes **node)
 {
-	char			**split;
+    char            *line;
 
 	while ((*node)->next->data[0] == '#')
 		(*node) = (*node)->next;
-	split = ft_strsplit((*node)->next->data, ' ');
-	if (!flag)
-		info->room_start = ft_strdup(split[0]);
-	else
-		info->room_end = ft_strdup(split[0]);
-	free(split[0]);
-	free(split[1]);
-	free(split);
 	(*node) = (*node)->next;
+    line = ft_strchr((*node)->data, ' ');
+	if (!flag)
+        info->room_start = ft_strsub((*node)->data, 0, line - (*node)->data);
+	else
+        info->room_end = ft_strsub((*node)->data, 0, line - (*node)->data);
 }

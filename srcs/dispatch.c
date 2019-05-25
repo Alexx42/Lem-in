@@ -145,6 +145,7 @@ void				send_it(int *ant_path, t_graph *graph, t_info *info)
 			send_ants(info, tmp, graph, info->nb_ants, ant_path, ant_index - i);
 		}
 	}
+	free(tmp);
 }
 
 int					dispatcher(t_graph *graph, t_info *info)
@@ -152,7 +153,7 @@ int					dispatcher(t_graph *graph, t_info *info)
 	int			c;
 	int			ant_index;
 	int			nb_for_path[graph->count];
-	int			*ant_path;
+	int         *ant_path;
 
 	ant_index = 0;
 	init_id(nb_for_path, graph->count);
@@ -187,5 +188,6 @@ int					dispatcher(t_graph *graph, t_info *info)
 	}
 	graph->verif = 0;
 	send_it(ant_path, graph, info);
+	free(ant_path);
 	return (1);
 }

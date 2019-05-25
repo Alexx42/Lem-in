@@ -1,5 +1,6 @@
 
 #include <lem_in.h>
+#include "../libft/libft.h"
 
 static t_nodes		*init_line(char *str)
 {
@@ -27,27 +28,20 @@ static	t_list		*init_list(char *str)
 	return (new_list);
 }
 
-void				remove_idx_elements(t_adj **lst, char *str) {
-	// int		i;
+void				delete_list(t_list **head)
+{
+	t_nodes *current;
+	t_nodes *next;
 
-	// while ((*lst)) {
-	// 	printf("val = %s ", (*lst)->vertex);
-	// 	(*lst) = (*lst)->next;
-	// }
-	t_adj *tmp = *lst;
-	t_adj *prev;
-	if (tmp != NULL && !ft_strcmp(tmp->vertex, str)) {
-		*lst = tmp->next;
-		free(tmp);
-		return ;
+	current = (*head)->head;
+	while (current != NULL)
+	{
+		next = current->next;
+        free(current->data);
+		free(current);
+		current = next;
 	}
-	while (tmp != NULL && ft_strcmp(tmp->vertex, str)) {
-		prev = tmp;
-		tmp = tmp->next;
-	}
-	if (prev == NULL) return ;
-	prev->flag = 1;
-	// free(tmp);
+	*head = NULL;
 }
 
 void				push_back(t_list **lst, char *str)

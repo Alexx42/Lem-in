@@ -13,7 +13,7 @@ t_queue			*create_queue()
 
 int				is_empty_queue(t_queue *queue)
 {
-	if (queue->rear == NULL)
+	if (queue == NULL || queue->rear == NULL)
 		return (1);
 	return (0);
 }
@@ -38,15 +38,17 @@ t_val			*dequeue(t_queue *queue)
 {
 	t_val		*val;
 
-	val = queue->front;
 	if (is_empty_queue(queue))
 		return (NULL);
+	val = queue->front;
 	if (queue->front == queue->rear)
 	{
 		queue->front = NULL;
 		queue->rear = NULL;
 	}
 	else
+	{
 		queue->front = queue->front->next;
+	}
 	return (val);
 }

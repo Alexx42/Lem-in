@@ -42,13 +42,9 @@ int			bfs(t_graph **graph, t_queue *queue, t_info *info)
 	t_adj		*tmp;
 	size_t		i;
 
-	i = 0;
-	while (i < info->nb_vertices)
-	{
+	i = -1;
+	while (++i < info->nb_vertices)
 		(*graph)->visited[i] = 0;
-		i++;
-	}
-	queue = create_queue();
 	enqueue(queue, info->room_start, NULL);
 	(*graph)->visited[search_item(info->room_start)] = 1;
 	while (!is_empty_queue(queue))
@@ -102,13 +98,79 @@ t_list			*create_lst()
 
 int     add_vertices(t_graph *graph, t_nodes *node)
 {
-	char		**nb;
+    char        *line;
+    char        *line2;
+    char        *line3;
 
-	nb = ft_strsplit(node->data, '-');
-    if (search_item(nb[0]) == -1 || search_item(nb[1]) == -1)
-        return (1);
-	add_edge(graph, nb[0], nb[1]);
+    line = ft_strchr(node->data, '-');
+    line2 = ft_strsub(node->data, 0, line - node->data);
+    line3 = ft_strsub(node->data, (unsigned int) (ft_strlen(line2) + 1), ft_strlen(node->data));
+	add_edge(graph, line2, line3);
 	return (0);
+}
+
+void            free_info(t_info *info)
+{
+    free(info->room_end);
+    free(info->room_start);
+    free(info);
+}
+
+void            free_graph(t_graph *graph, t_info *info)
+{
+    size_t  i;
+    t_adj   *tmp;
+    t_adj   *next;
+
+    i = -1;
+    while (++i < info->nb_vertices)
+    {
+        free(graph->nb_ways[i]);
+        tmp = graph->adj_list[i];
+        while (graph->adj_list[i])
+        {
+            next = graph->adj_list[i]->next;
+            free(graph->adj_list[i]->vertex);
+            graph->adj_list[i] = next;
+        }
+        graph->adj_list[i] = tmp;
+        free(graph->adj_list[i]);
+        free(graph->path[i]);
+    }
+    free(graph->visited);
+    free(graph->nrip);
+    free(graph->path);
+    free(graph->nb_ways);
+    free(graph->adj_list);
+    free(graph);
+}
+
+void            free_hash()
+{
+    int			i;
+
+    i = 0;
+    while (i < SIZE)
+    {
+        if (hash_array[i])
+        {
+            free(hash_array[i]->data);
+            free(hash_array[i]);
+        }
+        i++;
+    }
+}
+
+void            free_queue(t_queue *queue)
+{
+    t_val   *tmp;
+    while (!is_empty_queue(queue))
+    {
+        tmp = dequeue(queue);
+        free(tmp->content);
+        free(tmp);
+    }
+    free(queue);
 }
 
 void			parsing_ants()
@@ -118,27 +180,27 @@ void			parsing_ants()
 	t_list		*lst;
 	t_graph		*graph;
 	t_queue		*queue;
+    t_nodes     *node;
 
 	queue = create_queue();
 	lst = create_lst();
 	create_hash(lst);
 	info = parse_info(lst->head);
 	graph = new_graph((int)info->nb_vertices);
-	while (lst && lst->head)
+    node = lst->head;
+	while (node)
 	{
-        if (check_error(lst->head->data))
+        if (check_error(node->data))
             break ;
-		if (ft_strequ(lst->head->data, "##start"))
-			parse_end_start(info, 0, &lst->head);
-		else if (ft_strequ(lst->head->data, "##end"))
-			parse_end_start(info, 1, &lst->head);
-		else if (ft_strchr(lst->head->data, '-') != NULL)
-			if (add_vertices(graph, lst->head))
+		if (ft_strequ(node->data, "##start"))
+			parse_end_start(info, 0, &node);
+		else if (ft_strequ(node->data, "##end"))
+			parse_end_start(info, 1, &node);
+		else if (ft_strchr(node->data, '-') != NULL)
+			if (add_vertices(graph, node))
 				break ;
-		lst->head = lst->head->next;
+        node = node->next;
 	}
-//    print_graph(graph);
-//    print_hash();
 	while (bfs(&graph, queue, info))
 		;
 	if (!graph->path || !graph->path[0])
@@ -154,7 +216,6 @@ void			parsing_ants()
 		tmp = graph->path[v];
 		while (graph->path[v]->parent)
 		{
-
 			graph->nrip[v]++;
 			graph->path[v] = graph->path[v]->parent;
 		}
@@ -163,4 +224,9 @@ void			parsing_ants()
 	}
 	if (dispatcher(graph, info))
 		ft_putchar('\n');
+    delete_list(&lst);
+    free_queue(queue);
+    free_graph(graph, info);
+    free_info(info);
+    free_hash();
 }
