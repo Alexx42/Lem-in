@@ -33,6 +33,6 @@ void		create_hash(t_list *lst)
 int		main()
 {
 	parsing_ants();
-    system("leaks lem-in");
+	//system("leaks lem-in");
 	return (0);
 }

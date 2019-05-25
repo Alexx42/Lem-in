@@ -190,6 +190,8 @@ void			parsing_ants()
     node = lst->head;
 	while (node)
 	{
+		ft_putstr(node->data);
+		ft_putchar('\n');
         if (check_error(node->data))
             break ;
 		if (ft_strequ(node->data, "##start"))
@@ -201,6 +203,7 @@ void			parsing_ants()
 				break ;
         node = node->next;
 	}
+	ft_putchar('\n');
 	while (bfs(&graph, queue, info))
 		;
 	if (!graph->path || !graph->path[0])
