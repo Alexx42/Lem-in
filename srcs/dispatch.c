@@ -6,101 +6,33 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 15:14:48 by anjansse          #+#    #+#             */
-/*   Updated: 2019/05/25 15:21:30 by anjansse         ###   ########.fr       */
+/*   Updated: 2019/05/26 14:45:38 by anjansse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
-#include "../includes/lem_in.h"
-#include "../libft/libft.h"
 
-static int			*init_id(int *array, int max)
+static int			update_status(t_val **tmp, t_graph *graph, int index)
 {
 	int i;
 
-	i = 0;
-	while (i < max)
+	i = -1;
+	if (graph->ant[0] < graph->ant[1])
 	{
-		array[i] = 0;
-		i++;
-	}
-	return (array);
-}
-static void				print_ant_path(int ant, char *room)
-{
-		ft_putchar('L');
-		ft_putnbr(ant);
-		ft_putchar('-');
-		ft_putstr(room);
-		ft_putchar(' ');
-}
-/*
-void				print_list(t_val *path)
-{
-	t_val	*tmp;
-
-	tmp = path;
-	while (tmp)
-	{
-		ft_printf("ROOM IS %s\n", tmp->content);
-		tmp = tmp->parent;
-	}
-	ft_putchar('\n');
-}
-*/
-void		reverse_path(t_val **path)
-{
-	t_val	*prev;
-	t_val	*current;
-	t_val	*next;
-
-	prev = NULL;
-	current = *path;
-	next = NULL;
-	while (current->parent != NULL)
-	{
-		next = current->parent;
-		current->parent = prev;
-		prev = current;
-		current = next;
-	}
-	*path = prev;
-}
-
-static int			in_previous(int *n, int end, int begin)
-{
-	while (begin < end)
-	{
-		if (n[begin] == n[begin + 1] || n[begin] == n[end])
-			return (1);
-		begin++;
-	}
-	return (0);
-}
-
-int					send_ants(t_info *info, t_val **tmp, t_graph *graph, int ant, int *ant_path, int index)
-{
-	int i = 0;
-
-	if (ant < info->nb_ants)
-	{
-		tmp[ant] = graph->path[ant_path[index]];
-		//ft_printf("1.L%d-%s ", ant + 1, tmp[ant]->content);
-		print_ant_path(ant + 1, tmp[ant]->content);
-		if (tmp[ant])
-			tmp[ant] = tmp[ant]->parent;
+		tmp[graph->ant[0]] = graph->path[index];
+		print_ant_path(graph->ant[0] + 1, tmp[graph->ant[0]]->content);
+		if (tmp[graph->ant[0]])
+			tmp[graph->ant[0]] = tmp[graph->ant[0]]->parent;
 	}
 	if (graph->verif == 0)
 	{
-		while (i < graph->limit)
+		while (++i < graph->limit)
 		{
 			if (tmp[i])
 			{
 				print_ant_path(i + 1, tmp[i]->content);
-				//ft_printf("2.L%d-%s ", i + 1, tmp[i]->content);
 				tmp[i] = tmp[i]->parent;
 			}
-			i++;
 		}
 		graph->verif = 1;
 		return (1);
@@ -108,86 +40,95 @@ int					send_ants(t_info *info, t_val **tmp, t_graph *graph, int ant, int *ant_p
 	return (0);
 }
 
-void				send_it(int *ant_path, t_graph *graph, t_info *info)
+static void 		other_send_ants(t_graph *graph, t_info *info, int i, t_val **tmp)
 {
-	int i;
-	int ant = 0;
-	int ant_index = info->nb_ants;
-	t_val **tmp;
+	ft_putchar('\n');
+	graph->ant[2] = graph->ant[2] - i;
+	if (graph->ant[0] == graph->ant[1])
+	{
+		while (tmp[graph->ant[1] - 1] && ft_strcmp(tmp[graph->ant[1] - 1]->content, info->room_end))
+		{
+			graph->limit = graph->ant[0];
+			graph->verif = 0;
+			update_status(tmp, graph, graph->ant_path[graph->ant[2] - i]);
+			graph->verif = 0;
+			ft_putchar('\n');
+		}
+		update_status(tmp, graph, graph->ant_path[graph->ant[2] - i]);
+	}
+}
+
+void				send_ants(t_graph *graph, t_info *info)
+{
+	int			i;
+	t_val		**tmp;
 
 	i = -1;
-	tmp = (t_val **)malloc(sizeof(t_val *) * (info->nb_ants + 1));
+	graph->ant[0] = 0;
+	graph->ant[1] = info->nb_ants;
+	graph->ant[2] = info->nb_ants;
+	tmp = (t_val **)malloc(sizeof(t_val *) * (graph->ant[1] + 1));
 	while (++i < graph->count)
 		reverse_path(&graph->path[i]);
-	while (ant_index > 0)
+	while (graph->ant[2] > 0)
 	{
 		i = 0;
 		graph->verif = 0;
-		graph->limit = ant;
-		while ((ant_index - i > 0) && (!in_previous(ant_path, ant_index, ant_index - i) || i == 0))
+		graph->limit = graph->ant[0];
+		while ((graph->ant[2] - i > 0) && (!in_previous(graph->ant_path,\
+						graph->ant[2], graph->ant[2] - i) || i == 0))
 		{
-			send_ants(info, tmp, graph, ant, ant_path, ant_index - i);
-			ant++;
+			update_status(tmp, graph, graph->ant_path[graph->ant[2] - i]);
+			graph->ant[0]++;
 			i++;
 		}
-		ft_putchar('\n');
-		ant_index = ant_index - i;
-		if (ant == info->nb_ants)
-		{
-			while (tmp[info->nb_ants - 1] && ft_strcmp(tmp[info->nb_ants - 1]->content, info->room_end))
-			{
-				graph->limit = ant;
-				graph->verif = 0;
-				send_ants(info, tmp, graph, info->nb_ants, ant_path, ant_index - i);
-				graph->verif = 0;
-				ft_putchar('\n');
-			}
-			send_ants(info, tmp, graph, info->nb_ants, ant_path, ant_index - i);
-		}
+		other_send_ants(graph, info, i, tmp);
 	}
 	free(tmp);
 }
 
+static int 		other_dispatch(t_graph *graph, t_info *info, int ant_index, \
+		int *nb_for_path)
+{
+	while (info->c < graph->count && ant_index < info->nb_ants)
+	{
+		if (info->c + 1 < graph->count && (nb_for_path[info->c] + \
+					graph->nrip[info->c]) <= graph->nrip[info->c + 1])
+		{
+			nb_for_path[info->c]++;
+			ant_index++;
+			graph->ant_path[ant_index] = info->c;
+		}
+		else if (info->c + 1 < graph->count && graph->nrip[info->c + 1]\
+				&& (nb_for_path[info->c] + graph->nrip[info->c]) >\
+				graph->nrip[info->c + 1] && nb_for_path[info->c + 1] == 0)
+			info->c++;
+		else
+		{
+			nb_for_path[info->c]++;
+			ant_index++;
+			graph->ant_path[ant_index] = info->c;
+			info->c++;
+		}
+	}
+	return (ant_index);
+}
+
 int					dispatcher(t_graph *graph, t_info *info)
 {
-	int			c;
 	int			ant_index;
 	int			nb_for_path[graph->count];
-	int         *ant_path;
 
 	ant_index = 0;
 	init_id(nb_for_path, graph->count);
-	ant_path = (int *)malloc(sizeof(int) * (info->nb_ants + 1));
-	//ft_printf("Ants: %d\n\n", info->nb_ants);
+	graph->ant_path = (int *)malloc(sizeof(int) * (info->nb_ants + 1));
 	while (ant_index < info->nb_ants)
 	{
-		c = 0;
-		while (c < graph->count && ant_index < info->nb_ants)
-		{
-			if (c + 1 < graph->count && (nb_for_path[c] + graph->nrip[c]) <= graph->nrip[c + 1])
-			{
-				//ft_printf("B%d.\n\n", i);
-				//printf("L%d-%d\n", ant_index, c);
-				nb_for_path[c]++;
-				ant_index++;
-				ant_path[ant_index] = c;
-			}
-			else if (c + 1 < graph->count && graph->nrip[c + 1] && (nb_for_path[c] + graph->nrip[c]) > graph->nrip[c + 1] && nb_for_path[c + 1] == 0)
-			{
-				c++;
-			}
-			else
-			{
-				nb_for_path[c]++;
-				ant_index++;
-				//printf("L%d-%d\n", ant_index, c);
-				ant_path[ant_index] = c;
-				c++;
-			}
-		}
+		info->c = 0;
+		ant_index = other_dispatch(graph, info, ant_index, nb_for_path);
 	}
 	graph->verif = 0;
-	send_it(ant_path, graph, info);
-	free(ant_path);
+	send_ants(graph, info);
+	free(graph->ant_path);
 	return (1);
 }
