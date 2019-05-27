@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 01:09:11 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/05/27 01:09:22 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/05/27 10:32:32 by anjansse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@ void		create_hash(t_list *lst)
 	i = 0;
 	while (node->data && !ft_strchr(node->data, '-'))
 	{
-		if (node->data[0] == '#')
-			;
-		else
+		if (node->data[0] != '#')
 		{
 			line = ft_strchr(node->data, ' ');
 			if (line != NULL)
@@ -44,6 +42,11 @@ void		create_hash(t_list *lst)
 
 int			main(void)
 {
-	parsing_ants();
+	t_queue		*queue;
+	t_val		*tmp;
+
+	tmp = NULL;
+	queue = create_queue();
+	parsing_ants(queue, tmp);
 	return (0);
 }

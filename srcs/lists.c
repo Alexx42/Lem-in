@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 01:41:47 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/05/27 01:44:14 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/05/27 10:49:09 by anjansse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,32 @@ static	t_list		*init_list(char *str)
 	new_list->head = new_line;
 	new_list->tail = new_line;
 	return (new_list);
+}
+
+t_list			*create_lst(void)
+{
+	t_list		*lst;
+	char		*line;
+	uint32_t	count_start;
+	uint32_t	count_end;
+
+	count_start = 0;
+	count_end = 0;
+	lst = NULL;
+	while (get_next_line(0, &line) > 0)
+	{
+		if (!ft_strcmp("##start", line))
+			count_start++;
+		else if (!ft_strcmp("##end", line))
+			count_end++;
+		push_back(&lst, line);
+	}
+	if (lst == NULL || count_start != 1 || count_end != 1)
+	{
+		ft_putstr_fd("ERROR\n", 2);
+		exit(1);
+	}
+	return (lst);
 }
 
 void				delete_list(t_list **head)

@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 04:04:37 by Alex              #+#    #+#             */
-/*   Updated: 2019/05/23 12:41:58 by anjansse         ###   ########.fr       */
+/*   Updated: 2019/05/27 10:53:27 by anjansse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct		s_hash
 
 typedef struct 		s_info
 {
+	int				c;
 	char			*room_start;
 	char			*room_end;
 	int				nb_ants;
@@ -51,6 +52,8 @@ typedef struct		s_val
 
 typedef struct		s_graph
 {
+	int				*ant_path;
+	int				ant[3];
 	int				limit;
 	char			verif;
 	char			nb_vertices;
@@ -89,6 +92,8 @@ void				create_hash(t_list *lst);
 void				push_back(t_list **lst, char *str);
 void				remove_idx_elements(t_adj **lst, char *str);
 void				delete_list(t_list **head);
+t_list				*create_lst(void);
+
 /*
 ** INFOS
 */
@@ -101,7 +106,7 @@ void				parse_nb_vertices(t_nodes *node, t_info *info);
 ** PARSING
 */
 
-void				parsing_ants();
+void				parsing_ants(t_queue *queue, t_val *tmp);
 void				parse_end_start(t_info *info, char flag, t_nodes **node);
 
 
@@ -138,11 +143,30 @@ t_adj				*new_adj(char *val);
 */
 
 int					dispatcher(t_graph *graph, t_info *info);
+int					in_previous(int *n, int end, int begin);
+void				reverse_path(t_val **path);
+void				print_ant_path(int ant, char *room);
+int					*init_id(int *array, int max);
 
 /*
-** ERROR
+** BFS
 */
-int					check_error(char *str);
 
+void			init_bfs(t_graph **graph, t_queue *queue, t_info *info);
+void			bfs_help(t_graph **graph, t_val *current_vertex, t_info *info);
+int				bfs(t_graph **graph, t_queue *queue, t_info *info);
+void			add_path(t_graph **graph, t_val *current_vertex);
+t_val			*get_vertex(t_val *tmpcur, t_val *current_vertex, t_info *info\
+		, t_adj *tmp2);
+
+/*
+** ERROR | FREE
+*/
+
+int					check_error(char *str);
+void				free_queue(t_queue *queue);
+void				free_hash(void);
+void				free_graph(t_graph *graph, t_info *info);
+void				free_info(t_info *info);
 
 #endif

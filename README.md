@@ -1,3 +1,0 @@
-# Lem-in
-
-Playing with graph and ants...
