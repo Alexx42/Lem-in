@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 01:21:18 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/05/27 12:33:16 by anjansse         ###   ########.fr       */
+/*   Updated: 2019/05/27 14:36:42 by anjansse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ t_info				*parse_info(t_nodes *node)
 	t_info		*info;
 
 	info = init_info();
-	while (node->data[0] == '#')
-		node = node->next;
-	info->nb_ants = ft_atoi(node->data);
+	if (!(info->nb_ants = ft_atoi(node->data)))
+		send_error();
+	info->check |= ANT;
 	if (info->nb_ants < 0)
 		send_error();
 	parse_nb_vertices(node, info);
@@ -51,6 +51,8 @@ void				parse_nb_vertices(t_nodes *node, t_info *info)
 			info->nb_vertices++;
 		node = node->next;
 	}
+	if (info->nb_vertices <= 1)
+		send_error();
 }
 
 void				parse_end_start(t_info *info, char flag, t_nodes **node)

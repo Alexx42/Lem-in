@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 04:04:37 by Alex              #+#    #+#             */
-/*   Updated: 2019/05/27 12:27:59 by anjansse         ###   ########.fr       */
+/*   Updated: 2019/05/27 14:27:45 by anjansse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define START	0x01
 # define ANT	0x02
 # define END	0x04
+# define LINK	0x08
 
 typedef struct		s_adj
 {

@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 06:47:51 by Alex              #+#    #+#             */
-/*   Updated: 2019/05/27 11:41:11 by anjansse         ###   ########.fr       */
+/*   Updated: 2019/05/27 15:07:27 by anjansse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,7 @@ void		insert_data(int key, char *data)
 		++hash_idx;
 		hash_idx %= SIZE;
 	}
+	if (g_hash_array[search_item(data)])
+		send_error();
 	g_hash_array[hash_idx] = item;
 }

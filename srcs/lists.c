@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 01:41:47 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/05/27 11:35:34 by anjansse         ###   ########.fr       */
+/*   Updated: 2019/05/27 14:38:52 by anjansse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,7 @@ t_list				*create_lst(void)
 		push_back(&lst, line);
 	}
 	if (lst == NULL || count_start != 1 || count_end != 1)
-	{
-		ft_putstr_fd("ERROR\n", 2);
-		exit(1);
-	}
+		send_error();
 	return (lst);
 }
 

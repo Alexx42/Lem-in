@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 01:29:12 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/05/27 12:28:50 by anjansse         ###   ########.fr       */
+/*   Updated: 2019/05/27 14:46:56 by anjansse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ void			init_struct(t_info **info, t_list **lst,
 void			parseur(t_info *info, t_graph *graph,
 				t_nodes **node)
 {
+	ft_putstr((*node)->data);
+	ft_putchar('\n');
+	(*node) = (*node)->next;
 	while ((*node))
 	{
 		if (check_error((*node)->data, info))
