@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 01:21:18 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/05/27 01:22:03 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/05/27 12:33:16 by anjansse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,11 @@ t_info				*parse_info(t_nodes *node)
 	t_info		*info;
 
 	info = init_info();
-	while (node->data)
-		if (node->data[0] != '#')
-			break ;
+	while (node->data[0] == '#')
+		node = node->next;
 	info->nb_ants = ft_atoi(node->data);
+	if (info->nb_ants < 0)
+		send_error();
 	parse_nb_vertices(node, info);
 	return (info);
 }
@@ -56,12 +57,24 @@ void				parse_end_start(t_info *info, char flag, t_nodes **node)
 {
 	char			*line;
 
+	ft_putstr((*node)->next->data);
+	ft_putchar('\n');
 	while ((*node)->next->data[0] == '#')
 		(*node) = (*node)->next;
 	(*node) = (*node)->next;
 	line = ft_strchr((*node)->data, ' ');
 	if (!flag)
+	{
 		info->room_start = ft_strsub((*node)->data, 0, line - (*node)->data);
+		if (info->check & START)
+			send_error();
+		info->check |= START;
+	}
 	else
+	{
 		info->room_end = ft_strsub((*node)->data, 0, line - (*node)->data);
+		if (info->check & END)
+			send_error();
+		info->check |= END;
+	}
 }

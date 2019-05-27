@@ -6,7 +6,7 @@
 /*   By: anjansse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 10:35:49 by anjansse          #+#    #+#             */
-/*   Updated: 2019/05/27 10:37:05 by anjansse         ###   ########.fr       */
+/*   Updated: 2019/05/27 11:42:45 by anjansse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ void			free_hash(void)
 	i = 0;
 	while (i < SIZE)
 	{
-		if (hash_array[i])
+		if (g_hash_array[i])
 		{
-			free(hash_array[i]->data);
-			free(hash_array[i]);
+			free(g_hash_array[i]->data);
+			free(g_hash_array[i]);
 		}
 		i++;
 	}

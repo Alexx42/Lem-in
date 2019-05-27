@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 15:14:48 by anjansse          #+#    #+#             */
-/*   Updated: 2019/05/27 01:40:51 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/05/27 11:57:02 by anjansse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ int					dispatcher(t_graph *graph, t_info *info)
 	}
 	graph->verif = 0;
 	send_ants(graph, info);
+	ft_putchar('\n');
 	free(graph->ant_path);
 	return (1);
 }

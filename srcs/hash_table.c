@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 06:47:51 by Alex              #+#    #+#             */
-/*   Updated: 2019/05/27 01:20:14 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/05/27 11:41:11 by anjansse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int			search_item(char *data)
 	i = 0;
 	while (i < SIZE)
 	{
-		if (hash_array[i] && !ft_strcmp(hash_array[i]->data, data))
-			return (hash_array[i]->key);
+		if (g_hash_array[i] && !ft_strcmp(g_hash_array[i]->data, data))
+			return (g_hash_array[i]->key);
 		i++;
 	}
 	return (-1);
@@ -41,10 +41,10 @@ void		insert_data(int key, char *data)
 	item->data = data;
 	item->key = key;
 	hash_idx = hash_code(key);
-	while (hash_array[hash_idx] != NULL && hash_array[hash_idx]->key != -1)
+	while (g_hash_array[hash_idx] != NULL && g_hash_array[hash_idx]->key != -1)
 	{
 		++hash_idx;
 		hash_idx %= SIZE;
 	}
-	hash_array[hash_idx] = item;
+	g_hash_array[hash_idx] = item;
 }

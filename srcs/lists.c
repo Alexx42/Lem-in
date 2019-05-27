@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 01:41:47 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/05/27 10:49:09 by anjansse         ###   ########.fr       */
+/*   Updated: 2019/05/27 11:35:34 by anjansse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static	t_list		*init_list(char *str)
 	return (new_list);
 }
 
-t_list			*create_lst(void)
+t_list				*create_lst(void)
 {
 	t_list		*lst;
 	char		*line;
@@ -67,8 +67,8 @@ t_list			*create_lst(void)
 
 void				delete_list(t_list **head)
 {
-	t_nodes *current;
-	t_nodes *next;
+	t_nodes		*current;
+	t_nodes		*next;
 
 	current = (*head)->head;
 	while (current != NULL)
@@ -83,7 +83,7 @@ void				delete_list(t_list **head)
 
 void				push_back(t_list **lst, char *str)
 {
-	t_nodes		*new_line;
+	t_nodes			*new_line;
 
 	if (lst == NULL)
 		return ;

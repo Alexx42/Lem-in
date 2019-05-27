@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 04:04:37 by Alex              #+#    #+#             */
-/*   Updated: 2019/05/27 10:53:27 by anjansse         ###   ########.fr       */
+/*   Updated: 2019/05/27 12:27:59 by anjansse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,17 @@
 # include <libft.h>
 # include <ft_printf.h>
 
-# define SIZE 500000
+# define SIZE	500000
+# define START	0x01
+# define ANT	0x02
+# define END	0x04
 
 typedef struct		s_adj
 {
-	char 			*vertex;
+	char			*vertex;
 	char			flag;
 	struct s_adj	*next;
 }					t_adj;
-
 
 typedef struct		s_hash
 {
@@ -34,8 +36,9 @@ typedef struct		s_hash
 	int				key;
 }					t_hash;
 
-typedef struct 		s_info
+typedef struct		s_info
 {
+	unsigned char	check;
 	int				c;
 	char			*room_start;
 	char			*room_end;
@@ -65,7 +68,6 @@ typedef struct		s_graph
 	int				*visited;
 }					t_graph;
 
-
 typedef struct		s_queue
 {
 	t_val			*front;
@@ -76,9 +78,9 @@ typedef struct		s_queue
 ** HASH
 */
 
-t_hash				*hash_array[SIZE];
-t_hash				*dummy_item;
-t_hash				*item;
+t_hash				*g_hash_array[SIZE];
+t_hash				*g_dummy_item;
+t_hash				*g_item;
 
 int					hash_code(int key);
 void				insert_data(int key, char *data);
@@ -101,15 +103,12 @@ t_list				*create_lst(void);
 t_info				*parse_info(t_nodes *node);
 void				parse_nb_vertices(t_nodes *node, t_info *info);
 
-
 /*
 ** PARSING
 */
 
 void				parsing_ants(t_queue *queue, t_val *tmp);
 void				parse_end_start(t_info *info, char flag, t_nodes **node);
-
-
 
 /*
 ** PRINTING FUNC
@@ -128,7 +127,6 @@ int					is_empty_queue(t_queue *queue);
 t_queue				*create_queue();
 void				enqueue(t_queue *queue, char *data, t_val *ok);
 t_val				*dequeue(t_queue *queue);
-
 
 /*
 ** GRAPH
@@ -152,18 +150,20 @@ int					*init_id(int *array, int max);
 ** BFS
 */
 
-void			init_bfs(t_graph **graph, t_queue *queue, t_info *info);
-void			bfs_help(t_graph **graph, t_val *current_vertex, t_info *info);
-int				bfs(t_graph **graph, t_queue *queue, t_info *info);
-void			add_path(t_graph **graph, t_val *current_vertex);
-t_val			*get_vertex(t_val *tmpcur, t_val *current_vertex, t_info *info\
-		, t_adj *tmp2);
+void				init_bfs(t_graph **graph, t_queue *queue, t_info *info);
+void				bfs_help(t_graph **graph, t_val *current_vertex, \
+		t_info *info);
+int					bfs(t_graph **graph, t_queue *queue, t_info *info);
+void				add_path(t_graph **graph, t_val *current_vertex);
+t_val				*get_vertex(t_val *tmpcur, t_val *current_vertex, t_info \
+		*info, t_adj *tmp2);
 
 /*
 ** ERROR | FREE
 */
 
-int					check_error(char *str);
+int					check_error(char *str, t_info *info);
+void				send_error(void);
 void				free_queue(t_queue *queue);
 void				free_hash(void);
 void				free_graph(t_graph *graph, t_info *info);

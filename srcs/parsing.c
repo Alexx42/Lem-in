@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 01:29:12 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/05/27 10:40:32 by anjansse         ###   ########.fr       */
+/*   Updated: 2019/05/27 12:28:50 by anjansse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ void			parseur(t_info *info, t_graph *graph,
 {
 	while ((*node))
 	{
+		if (check_error((*node)->data, info))
+			break ;
 		ft_putstr((*node)->data);
 		ft_putchar('\n');
-		if (check_error((*node)->data))
-			break ;
 		if (ft_strequ((*node)->data, "##start"))
 			parse_end_start(info, 0, node);
 		else if (ft_strequ((*node)->data, "##end"))
@@ -88,14 +88,10 @@ void			parsing_ants(t_queue *queue, t_val *tmp)
 	while (bfs(&graph, queue, info))
 		;
 	if (!graph->path || !graph->path[0])
-	{
-		ft_putstr_fd("ERROR\n", 2);
-		exit(1);
-	}
+		send_error();
 	graph->nrip = (int *)malloc(sizeof(int) * graph->count + 1);
 	get_paths(tmp, graph);
-	if (dispatcher(graph, info))
-		ft_putchar('\n');
+	dispatcher(graph, info);
 	delete_list(&lst);
 	free_queue(queue);
 	free_graph(graph, info);
