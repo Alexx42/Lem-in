@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/27 01:29:12 by ale-goff          #+#    #+#             */
+/*   Updated: 2019/05/27 01:38:34 by ale-goff         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <lem_in.h>
 
 void			add_path(t_graph **graph, t_val *current_vertex)
@@ -6,8 +18,8 @@ void			add_path(t_graph **graph, t_val *current_vertex)
 	(*graph)->count++;
 }
 
-t_val 			*get_vertex(t_val *tmpcur, t_val *current_vertex, t_info \
-		*info, t_adj *tmp2)
+t_val			*get_vertex(t_val *tmpcur, t_val *current_vertex,
+				t_info *info, t_adj *tmp2)
 {
 	tmpcur = current_vertex;
 	while (current_vertex->parent)
@@ -25,9 +37,9 @@ t_val 			*get_vertex(t_val *tmpcur, t_val *current_vertex, t_info \
 
 void			bfs_help(t_graph **graph, t_val *current_vertex, t_info *info)
 {
-	uint32_t v;
-	t_adj	*tmp2;
-	t_val	*tmpcur;
+	uint32_t	v;
+	t_adj		*tmp2;
+	t_val		*tmpcur;
 
 	v = -1;
 	while (++v < info->nb_vertices)
@@ -54,7 +66,7 @@ void			init_bfs(t_graph **graph, t_queue *queue, t_info *info)
 	(*graph)->visited[search_item(info->room_start)] = 1;
 }
 
-int			bfs(t_graph **graph, t_queue *queue, t_info *info)
+int				bfs(t_graph **graph, t_queue *queue, t_info *info)
 {
 	t_val		*current_vertex;
 	t_adj		*tmp;
@@ -83,12 +95,12 @@ int			bfs(t_graph **graph, t_queue *queue, t_info *info)
 	return (0);
 }
 
-t_list			*create_lst()
+t_list			*create_lst(void)
 {
 	t_list		*lst;
 	char		*line;
-	uint32_t 	count_start;
-	uint32_t 	count_end;
+	uint32_t	count_start;
+	uint32_t	count_end;
 
 	count_start = 0;
 	count_end = 0;
@@ -104,7 +116,7 @@ t_list			*create_lst()
 	if (lst == NULL || count_start != 1 || count_end != 1)
 	{
 		ft_putstr_fd("ERROR\n", 2);
-		exit (1);
+		exit(1);
 	}
 	return (lst);
 }
@@ -117,7 +129,7 @@ int				add_vertices(t_graph *graph, t_nodes *node)
 
 	line = ft_strchr(node->data, '-');
 	line2 = ft_strsub(node->data, 0, line - node->data);
-	line3 = ft_strsub(node->data, (unsigned int) (ft_strlen(line2) + 1),\
+	line3 = ft_strsub(node->data, (unsigned int)(ft_strlen(line2) + 1),
 			ft_strlen(node->data));
 	add_edge(graph, line2, line3);
 	return (0);
@@ -139,7 +151,7 @@ void			free_graph(t_graph *graph, t_info *info)
 	i = -1;
 	while (++i < info->nb_vertices)
 	{
-		ree(graph->nb_ways[i]);
+		free(graph->nb_ways[i]);
 		tmp = graph->adj_list[i];
 		while (graph->adj_list[i])
 		{
@@ -159,7 +171,7 @@ void			free_graph(t_graph *graph, t_info *info)
 	free(graph);
 }
 
-void			free_hash()
+void			free_hash(void)
 {
 	int			i;
 
@@ -177,7 +189,8 @@ void			free_hash()
 
 void			free_queue(t_queue *queue)
 {
-	t_val   *tmp;
+	t_val		*tmp;
+
 	while (!is_empty_queue(queue))
 	{
 		tmp = dequeue(queue);
@@ -187,16 +200,18 @@ void			free_queue(t_queue *queue)
 	free(queue);
 }
 
-void 			init_struct(t_info **info, t_list **lst, t_graph **graph, t_nodes **node)
+void			init_struct(t_info **info, t_list **lst,
+				t_graph **graph, t_nodes **node)
 {
 	(*lst) = create_lst();
 	create_hash((*lst));
 	(*info) = parse_info((*lst)->head);
-	(*graph) = new_graph((int) (*info)->nb_vertices);
+	(*graph) = new_graph((int)(*info)->nb_vertices);
 	(*node) = (*lst)->head;
 }
 
-void 			parseur(t_info *info, t_graph *graph, t_nodes **node)
+void			parseur(t_info *info, t_graph *graph,
+				t_nodes **node)
 {
 	while ((*node))
 	{
@@ -215,8 +230,11 @@ void 			parseur(t_info *info, t_graph *graph, t_nodes **node)
 	}
 }
 
-void 			get_paths(t_val *tmp, const t_graph *graph, int v)
+void			get_paths(t_val *tmp, const t_graph *graph)
 {
+	int		v;
+
+	v = 0;
 	while (v < graph->count)
 	{
 		graph->nrip[v] = 0;
@@ -238,8 +256,9 @@ void			parsing_ants(t_queue *queue)
 	t_info		*info;
 	t_list		*lst;
 	t_graph		*graph;
-	t_nodes     *node;
+	t_nodes		*node;
 
+	tmp = NULL;
 	init_struct(&info, &lst, &graph, &node);
 	parseur(info, graph, &node);
 	while (bfs(&graph, queue, info))
@@ -247,11 +266,10 @@ void			parsing_ants(t_queue *queue)
 	if (!graph->path || !graph->path[0])
 	{
 		ft_putstr_fd("ERROR\n", 2);
-		exit (1);
+		exit(1);
 	}
-	int v = 0;
 	graph->nrip = (int *)malloc(sizeof(int) * graph->count + 1);
-	get_paths(tmp, graph, v);
+	get_paths(tmp, graph);
 	if (dispatcher(graph, info))
 		ft_putchar('\n');
 	delete_list(&lst);

@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   infos.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/27 01:21:18 by ale-goff          #+#    #+#             */
+/*   Updated: 2019/05/27 01:22:03 by ale-goff         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <lem_in.h>
 #include "../includes/lem_in.h"
 #include "../libft/libft.h"
 
-static t_info		*init_info()
+static t_info		*init_info(void)
 {
 	t_info		*info;
 
@@ -27,28 +39,29 @@ t_info				*parse_info(t_nodes *node)
 	return (info);
 }
 
-void			parse_nb_vertices(t_nodes *node, t_info *info)
+void				parse_nb_vertices(t_nodes *node, t_info *info)
 {
 	while (node)
 	{
 		if (node->data[0] == '#')
 			;
-		else if (ft_strchr(node->data, ' ') && ft_strchr(node->data, '-') == NULL)
+		else if (ft_strchr(node->data, ' ') &&
+		ft_strchr(node->data, '-') == NULL)
 			info->nb_vertices++;
 		node = node->next;
 	}
 }
 
-void			parse_end_start(t_info *info, char flag, t_nodes **node)
+void				parse_end_start(t_info *info, char flag, t_nodes **node)
 {
-    char            *line;
+	char			*line;
 
 	while ((*node)->next->data[0] == '#')
 		(*node) = (*node)->next;
 	(*node) = (*node)->next;
-    line = ft_strchr((*node)->data, ' ');
+	line = ft_strchr((*node)->data, ' ');
 	if (!flag)
-        info->room_start = ft_strsub((*node)->data, 0, line - (*node)->data);
+		info->room_start = ft_strsub((*node)->data, 0, line - (*node)->data);
 	else
-        info->room_end = ft_strsub((*node)->data, 0, line - (*node)->data);
+		info->room_end = ft_strsub((*node)->data, 0, line - (*node)->data);
 }

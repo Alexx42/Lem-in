@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dispatch2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anjansse <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 14:10:18 by anjansse          #+#    #+#             */
-/*   Updated: 2019/05/26 14:22:18 by anjansse         ###   ########.fr       */
+/*   Updated: 2019/05/27 01:28:10 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ void		reverse_path(t_val **path)
 	*path = prev;
 }
 
-void				print_ant_path(int ant, char *room)
+void		print_ant_path(int ant, char *room)
 {
-		ft_putchar('L');
-		ft_putnbr(ant);
-		ft_putchar('-');
-		ft_putstr(room);
-		ft_putchar(' ');
+	ft_putchar('L');
+	ft_putnbr(ant);
+	ft_putchar('-');
+	ft_putstr(room);
+	ft_putchar(' ');
 }
 
 int			*init_id(int *array, int max)

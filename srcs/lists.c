@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lists.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/27 01:41:47 by ale-goff          #+#    #+#             */
+/*   Updated: 2019/05/27 01:44:14 by ale-goff         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <lem_in.h>
 #include "../libft/libft.h"
@@ -16,7 +27,7 @@ static t_nodes		*init_line(char *str)
 
 static	t_list		*init_list(char *str)
 {
-	t_list		*new_list; 
+	t_list		*new_list;
 	t_nodes		*new_line;
 
 	new_line = init_line(str);
@@ -37,7 +48,7 @@ void				delete_list(t_list **head)
 	while (current != NULL)
 	{
 		next = current->next;
-        free(current->data);
+		free(current->data);
 		free(current);
 		current = next;
 	}
@@ -58,5 +69,5 @@ void				push_back(t_list **lst, char *str)
 			return ;
 		(*lst)->tail->next = new_line;
 		(*lst)->tail = new_line;
-	} 
+	}
 }

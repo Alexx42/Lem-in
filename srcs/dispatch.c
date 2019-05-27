@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/17 15:14:48 by anjansse          #+#    #+#             */
-/*   Updated: 2019/05/26 14:45:38 by anjansse         ###   ########.fr       */
+/*   Updated: 2019/05/27 01:40:51 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,15 @@ static int			update_status(t_val **tmp, t_graph *graph, int index)
 	return (0);
 }
 
-static void 		other_send_ants(t_graph *graph, t_info *info, int i, t_val **tmp)
+static void			other_send_ants(t_graph *graph, t_info *info,
+					int i, t_val **tmp)
 {
 	ft_putchar('\n');
 	graph->ant[2] = graph->ant[2] - i;
 	if (graph->ant[0] == graph->ant[1])
 	{
-		while (tmp[graph->ant[1] - 1] && ft_strcmp(tmp[graph->ant[1] - 1]->content, info->room_end))
+		while (tmp[graph->ant[1] - 1] &&
+		ft_strcmp(tmp[graph->ant[1] - 1]->content, info->room_end))
 		{
 			graph->limit = graph->ant[0];
 			graph->verif = 0;
@@ -87,8 +89,8 @@ void				send_ants(t_graph *graph, t_info *info)
 	free(tmp);
 }
 
-static int 		other_dispatch(t_graph *graph, t_info *info, int ant_index, \
-		int *nb_for_path)
+static int			other_dispatch(t_graph *graph, t_info *info,
+					int ant_index, int *nb_for_path)
 {
 	while (info->c < graph->count && ant_index < info->nb_ants)
 	{

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   graph.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/05/27 01:22:39 by ale-goff          #+#    #+#             */
+/*   Updated: 2019/05/27 01:22:42 by ale-goff         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <lem_in.h>
 #include "../includes/lem_in.h"
 
@@ -51,7 +63,6 @@ void		add_edge(t_graph *graph, char *src, char *dst)
 		new_node = new_adj(dst);
 		new_node->next = graph->adj_list[search_item(src)];
 		graph->adj_list[search_item(src)] = new_node;
-
 		new_node = new_adj(src);
 		new_node->next = graph->adj_list[search_item(dst)];
 		graph->adj_list[search_item(dst)] = new_node;
