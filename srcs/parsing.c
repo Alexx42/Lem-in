@@ -6,13 +6,13 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 01:29:12 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/05/27 15:08:36 by anjansse         ###   ########.fr       */
+/*   Updated: 2019/05/27 17:34:59 by anjansse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <lem_in.h>
 
-int				add_vertices(t_graph *graph, t_nodes *node)
+int					add_vertices(t_graph *graph, t_nodes *node)
 {
 	char		*line;
 	char		*line2;
@@ -26,7 +26,7 @@ int				add_vertices(t_graph *graph, t_nodes *node)
 	return (0);
 }
 
-void			init_struct(t_info **info, t_list **lst,
+void				init_struct(t_info **info, t_list **lst,
 				t_graph **graph, t_nodes **node)
 {
 	(*lst) = create_lst();
@@ -36,9 +36,11 @@ void			init_struct(t_info **info, t_list **lst,
 	(*node) = (*lst)->head;
 }
 
-void			parseur(t_info *info, t_graph *graph,
+static void			parser(t_info *info, t_graph *graph,
 				t_nodes **node)
 {
+	if (!(ft_atoi((*node)->data)))
+		send_error();
 	ft_putstr((*node)->data);
 	ft_putchar('\n');
 	(*node) = (*node)->next;
@@ -59,9 +61,9 @@ void			parseur(t_info *info, t_graph *graph,
 	}
 }
 
-void			get_paths(t_val *tmp, t_graph *graph)
+void				get_paths(t_val *tmp, t_graph *graph)
 {
-	int		v;
+	int			v;
 
 	v = 0;
 	while (v < graph->count)
@@ -79,7 +81,7 @@ void			get_paths(t_val *tmp, t_graph *graph)
 	ft_putchar('\n');
 }
 
-void			parsing_ants(t_queue *queue, t_val *tmp)
+void				parsing_ants(t_queue *queue, t_val *tmp)
 {
 	t_info		*info;
 	t_list		*lst;
@@ -87,7 +89,7 @@ void			parsing_ants(t_queue *queue, t_val *tmp)
 	t_nodes		*node;
 
 	init_struct(&info, &lst, &graph, &node);
-	parseur(info, graph, &node);
+	parser(info, graph, &node);
 	while (bfs(&graph, queue, info))
 		;
 	if (!graph->path || !graph->path[0])

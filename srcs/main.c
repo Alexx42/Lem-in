@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 01:09:11 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/05/27 14:52:11 by anjansse         ###   ########.fr       */
+/*   Updated: 2019/05/27 17:33:38 by anjansse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,14 @@ void		create_hash(t_list *lst)
 	lst->head = tmp;
 }
 
-int			main(void)
+int			main(int ac, char **av)
 {
 	t_queue		*queue;
 	t_val		*tmp;
 
+	(void)ac;
+	if (av[1])
+		send_error();
 	tmp = NULL;
 	queue = create_queue();
 	parsing_ants(queue, tmp);
