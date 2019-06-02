@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 01:09:11 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/05/27 17:33:38 by anjansse         ###   ########.fr       */
+/*   Updated: 2019/06/02 14:02:11 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ int			main(int ac, char **av)
 	tmp = NULL;
 	queue = create_queue();
 	parsing_ants(queue, tmp);
+	system("leaks lem-in");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 01:21:18 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/05/27 14:36:42 by anjansse         ###   ########.fr       */
+/*   Updated: 2019/06/01 15:21:59 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static t_info		*init_info(void)
 	info = (t_info*)malloc(sizeof(t_info));
 	info->nb_ants = 0;
 	info->room_start = NULL;
+	info->check = 0;
 	info->room_end = NULL;
 	info->nb_vertices = 0;
 	return (info);

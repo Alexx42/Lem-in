@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing2.c                                         :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anjansse <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 10:35:49 by anjansse          #+#    #+#             */
-/*   Updated: 2019/05/27 11:42:45 by anjansse         ###   ########.fr       */
+/*   Updated: 2019/06/01 15:12:06 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void			free_graph(t_graph *graph, t_info *info)
 	size_t		i;
 	t_adj		*tmp;
 	t_adj		*next;
+	t_val		*tmp2;
+	t_val		*next2;
 
 	i = -1;
 	while (++i < info->nb_vertices)
@@ -56,11 +58,18 @@ void			free_graph(t_graph *graph, t_info *info)
 		{
 			next = graph->adj_list[i]->next;
 			free(graph->adj_list[i]->vertex);
+			free(graph->adj_list[i]);
 			graph->adj_list[i] = next;
 		}
 		graph->adj_list[i] = tmp;
-		free(graph->adj_list[i]);
-		free(graph->path[i]);
+		tmp2 = graph->path[i];
+		while (graph->path[i])
+		{
+			next2 = graph->path[i]->next;
+			free(graph->path[i]);
+			graph->path[i] = next2;
+		}
+		graph->path[i] = tmp2;
 	}
 	free(graph->visited);
 	free(graph->nrip);
