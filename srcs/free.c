@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 10:35:49 by anjansse          #+#    #+#             */
-/*   Updated: 2019/06/02 14:20:57 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/02 14:24:51 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void			free_graph(t_graph *graph, t_info *info)
 	size_t		i;
 	t_adj		*tmp;
 	t_adj		*next;
+	t_val		*tmp2;
+	t_val		*next2;
 
 	i = -1;
 	while (++i < info->nb_vertices)
@@ -60,7 +62,14 @@ void			free_graph(t_graph *graph, t_info *info)
 			graph->adj_list[i] = next;
 		}
 		graph->adj_list[i] = tmp;
-		free(graph->path[i]);
+		tmp2 = graph->path[i];
+		while (graph->path[i] && graph->path[i]->parent)
+		{
+			next2 = graph->path[i]->parent;
+			free(graph->path[i]);
+			graph->path[i] = next2;
+		}
+		graph->path[i] = tmp2;
 	}
 	free(graph->visited);
 	free(graph->nrip);
