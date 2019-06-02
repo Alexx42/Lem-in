@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/16 14:00:30 by anjansse          #+#    #+#             */
-/*   Updated: 2019/06/01 15:19:48 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/02 15:22:44 by anjansse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,20 @@ static int		elem_in_array(char **array)
 	while (array[++i])
 		;
 	return (i);
+}
+
+static void		check_coord(char **array)
+{
+	if (*array)
+	{
+		array++;
+		while (*array)
+		{
+			if (!(ft_isdigit(**array)))
+				send_error();
+			array++;
+		}
+	}
 }
 
 void			send_error(void)
@@ -37,6 +51,7 @@ int				check_error(char *str)
 		return (1);
 	split = ft_strsplit(str, ' ');
 	split2 = ft_strsplit(str, '-');
+	check_coord(split);
 	if (str[0] != '#' && (elem_in_array(split) != 3 && \
 				elem_in_array(split2) != 2))
 		send_error();

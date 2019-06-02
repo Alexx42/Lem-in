@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 01:22:39 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/05/27 01:22:42 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/02 15:05:19 by anjansse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ void		add_edge(t_graph *graph, char *src, char *dst)
 	if (src >= 0 && dst >= 0)
 	{
 		new_node = new_adj(dst);
+		if ((search_item(src) < 0))
+			send_error();
 		new_node->next = graph->adj_list[search_item(src)];
 		graph->adj_list[search_item(src)] = new_node;
 		new_node = new_adj(src);

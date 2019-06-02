@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 10:35:49 by anjansse          #+#    #+#             */
-/*   Updated: 2019/06/02 14:51:28 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/02 15:06:31 by anjansse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void			free_graph(t_graph *graph, t_info *info)
 			graph->adj_list[i] = next;
 		}
 		graph->adj_list[i] = tmp;
-		free(graph->path[i]);
 	}
 	free(graph->visited);
 	free(graph->nrip);

@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 01:45:48 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/05/27 01:46:00 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/02 14:38:24 by anjansse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void			enqueue(t_queue *queue, char *data, t_val *ok)
 {
 	t_val			*val;
 
-	if ((val = (t_val *)malloc(sizeof(t_val))) == NULL)
+	if (!(val = (t_val *)malloc(sizeof(t_val))))
 		return ;
 	val->content = data;
 	val->next = NULL;

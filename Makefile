@@ -3,7 +3,7 @@ LIB = libft/libft.a
 LIB_PRINTF = ft_printf/libftprintf.a
 PRINTF_PATH = ft_printf/
 INCLUDES = -I ./includes -I./libft/ -I ./ft_printf/
-FLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
+FLAGS = -Wall -Werror -Wextra
 LIBFT_PATH = libft/
 SRCS =  $(addprefix srcs/, main.c hash_table.c lists.c infos.c parsing.c queue.c graph.c error.c dispatch.c dispatch2.c bfs.c free.c get_paths.c)
 OBJ = $(SRCS:.c=.o)
