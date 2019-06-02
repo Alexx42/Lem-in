@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/09 04:04:37 by Alex              #+#    #+#             */
-/*   Updated: 2019/05/27 17:29:24 by anjansse         ###   ########.fr       */
+/*   Updated: 2019/06/02 13:56:38 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ t_val				*get_vertex(t_val *tmpcur, t_val *current_vertex, t_info \
 ** ERROR | FREE
 */
 
-int					check_error(char *str, t_info *info);
+int					check_error(char *str);
 void				send_error(void);
 void				free_queue(t_queue *queue);
 void				free_hash(void);
