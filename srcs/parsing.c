@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 01:29:12 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/02 13:56:52 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/02 14:50:30 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int					add_vertices(t_graph *graph, t_nodes *node)
 }
 
 void				init_struct(t_info **info, t_list **lst,
-				t_graph **graph, t_nodes **node)
+					t_graph **graph, t_nodes **node)
 {
 	(*lst) = create_lst();
 	create_hash((*lst));
@@ -37,7 +37,7 @@ void				init_struct(t_info **info, t_list **lst,
 }
 
 static void			parser(t_info *info, t_graph *graph,
-				t_nodes **node)
+					t_nodes **node)
 {
 	if (!(ft_atoi((*node)->data)))
 		send_error();

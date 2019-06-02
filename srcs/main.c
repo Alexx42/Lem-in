@@ -6,7 +6,7 @@
 /*   By: ale-goff <ale-goff@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 01:09:11 by ale-goff          #+#    #+#             */
-/*   Updated: 2019/06/02 14:02:11 by ale-goff         ###   ########.fr       */
+/*   Updated: 2019/06/02 14:49:22 by ale-goff         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,11 @@ int			main(int ac, char **av)
 	t_queue		*queue;
 	t_val		*tmp;
 
-	(void)ac;
-	if (av[1])
+	(void)av;
+	if (ac > 1)
 		send_error();
 	tmp = NULL;
 	queue = create_queue();
 	parsing_ants(queue, tmp);
-	system("leaks lem-in");
 	return (0);
 }
